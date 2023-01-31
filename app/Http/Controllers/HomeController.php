@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,8 @@ class HomeController extends Controller
         
         $newest = Product::all()->sortByDesc('created_at')->take(6);
 
+        $categories = Category::all();
 
-
-        return view('client.pages.home', compact('recommended', 'popular', 'newest'));
+        return view('client.pages.home', compact('recommended', 'popular', 'newest', 'categories'));
     }
 }

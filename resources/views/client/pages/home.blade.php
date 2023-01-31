@@ -21,7 +21,6 @@
                       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
                     </div>
                     <div class="carousel-inner">
-                    
                     @foreach ($recommended as $r)
                     <div class="carousel-item active">
                         <img src="{{ asset('storage/product/'.$r->image().'.jpg') }}" class="d-block w-100" alt="...">
@@ -62,7 +61,7 @@
             @endforeach
         </div>
 
-        <hr>
+        <hr class="mt-5">
         <div class="row">
             <div class="col-sm-12">
                 <p class="lead text-conter">newest products</p>
@@ -87,6 +86,10 @@
 <style>
     .card {
         margin : 10px;
+    }
+    .card-img-top {
+        height: 300px;
+        width: auto;
     }
 </style>
 @endsection

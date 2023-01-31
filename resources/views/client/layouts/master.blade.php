@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a href="" class="nav-link">login/signup</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">products</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             account
@@ -43,12 +46,9 @@
                             categories
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategory">
-                            <li><a class="dropdown-item" href="#">category1</a></li>
-                            <li><a class="dropdown-item" href="#">category2</a></li>
-                            <li><a class="dropdown-item" href="#">category3</a></li>
-                            <li><a class="dropdown-item" href="#">category4</a></li>
-                            <li><a class="dropdown-item" href="#">category5</a></li>
-                            <li><a class="dropdown-item" href="#">category6</a></li>
+                            @foreach ($categories as $c)
+                            <li><a class="dropdown-item" href="#">{{ $c->name }}</a></li>
+                            @endforeach
                         </ul>
                     </li>
                 </ul>
