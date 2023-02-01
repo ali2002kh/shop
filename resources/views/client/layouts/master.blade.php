@@ -31,7 +31,7 @@
                             account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
-                            <li><a class="dropdown-item" href="#">profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.show') }}">profile</a></li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}">logout</a></li>
                         </ul>
                     </li>

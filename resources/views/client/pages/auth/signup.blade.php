@@ -13,7 +13,7 @@
         </div>
         <div class="m-3">
             <label for="number" class="form-label">Phone number</label>
-            <input type="number" class="form-control" id="number" placeholder="09xxxxxxxxx" name="number" value="{{ old('number') }}" required>
+            <input type="text" class="form-control" id="number" placeholder="09xxxxxxxxx" name="number" value="{{ old('number') }}" required>
         </div>
         <div class="m-3">
             <label for="password" class="form-label">password</label>
