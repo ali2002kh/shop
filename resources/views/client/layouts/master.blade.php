@@ -20,27 +20,29 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="" class="nav-link"><i class="fa fa-shopping-cart" style="font-size:25px"></i></a>
                     </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">login/signup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">products</a>
-                    </li>
+                    @if (auth()->check())
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
                             <li><a class="dropdown-item" href="#">profile</a></li>
-                            <li><a class="dropdown-item" href="#">logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">logout</a></li>
                         </ul>
                     </li>
-
+                    @else
+                    <li class="nav-item">
+                        <a href="{{ route('signup_page') }}" class="nav-link">login/signup</a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a href="" class="nav-link">products</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             categories

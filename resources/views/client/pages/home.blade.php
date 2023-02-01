@@ -22,13 +22,15 @@
                     </div>
                     <div class="carousel-inner">
                     @foreach ($recommended as $r)
-                    <div class="carousel-item active">
-                        <img src="{{ asset('storage/product/'.$r->image().'.jpg') }}" class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                          <h5>{{ $r->name }}</h5>
-                          {{-- <p>{{ $r->price }} toman</p> --}}
+                    <a href="{{ route('product.show', $r->id) }}">
+                        <div class="carousel-item active">
+                            <img src="{{ asset('storage/product/'.$r->image()) }}" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ $r->name }}</h5>
+                                {{-- <p>{{ $r->price }} toman</p> --}}
+                            </div>
                         </div>
-                      </div>
+                    </a>
                     @endforeach
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -39,7 +41,7 @@
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>
-                  </div>
+                </div>
             </div>
         </div>
         <hr class="mt-5">
@@ -50,11 +52,11 @@
             @foreach ($popular as $p)
             <div class="col-sm-4">
                 <div class="card mb-10">
-                    <img src="{{ asset('storage/product/'.$p->image().'.jpg') }}" class="card-img-top" alt="...">
+                    <img src="{{ asset('storage/product/'.$p->image()) }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $p->name }}</h5>
                         <p class="card-text">{{ $p->price }} toman</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="{{ route('product.show', $p->id) }}" class="btn btn-primary">details</a>
                     </div>
                 </div>
             </div>
@@ -69,11 +71,11 @@
             @foreach ($newest as $n)
             <div class="col-sm-4">
                 <div class="card mb-10">
-                    <img src="{{ asset('storage/product/'.$n->image().'.jpg') }}" class="card-img-top" alt="...">
+                    <img src="{{ asset('storage/product/'.$n->image()) }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ $n->name }}</h5>
                         <p class="card-text">{{ $n->price }} toman</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="{{ route('product.show', $n->id) }}" class="btn btn-primary">details</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +90,7 @@
         margin : 10px;
     }
     .card-img-top {
-        height: 300px;
+        max-height: 400px;
         width: auto;
     }
 </style>

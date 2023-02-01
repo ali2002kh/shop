@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class product extends Model
+class Product extends Model
 {
     use HasFactory;
 
@@ -15,13 +15,15 @@ class product extends Model
             return Image::where('product_id', $this->id)->where('main', true)->first()->link;
         }
         catch(Exception $e) {
-            return "image";
+            return "default.jpg";
         }
-
-        
     }
 
     public function images() {
-        return Image::where('product_id', $this->id);
+        return Image::where('product_id', $this->id)->get();
+    }
+
+    public function category() {
+        return category::find($this->category_id);
     }
 }
