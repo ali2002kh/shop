@@ -21,4 +21,12 @@ class HomeController extends Controller
 
         return view('client.pages.home', compact('recommended', 'popular', 'newest', 'categories'));
     }
+
+    public function about_us()
+    {
+
+        $categories = Category::all();
+
+        return view('client.pages.about_us', compact('categories'));
+    }
 }
