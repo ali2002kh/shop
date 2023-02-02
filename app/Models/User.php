@@ -25,4 +25,18 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function hasCart() {
+        
+        return Cart::all()
+        ->where('user_id', $this->id)
+        ->count();
+    }
+
+    public function cart() {
+        
+        return Cart::all()
+        ->where('user_id', $this->id)
+        ->first();
+    }
+
 }

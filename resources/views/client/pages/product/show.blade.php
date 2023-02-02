@@ -31,7 +31,15 @@
                 <p class="lead">{{ $product->price }} toman</p>
                 <p class="text-muted">number remaining : {{ $product->count }}</p>
                 <p class="text-muted">category : {{ $product->category()->name }}</p>
-                <a href="#" class="btn btn-primary">add to cart</a>
+                <div class="m-1 d-grid">
+                    <a href="{{ route('add_to_cart', $product->id) }}" class="btn btn-primary my-1">add to cart</a>
+                    @if (auth()->user()->hasCart() && $product->count_in_cart() > 0)
+                        <a href="{{ route('remove_from_cart', $product->id) }}" class="btn btn-danger my-1">remove from cart</a>
+                    @endif
+                </div>
+                @if (auth()->user()->hasCart())
+                <p class="lead">in the cart : {{ $product->count_in_cart() }}</p>
+                @endif
             </div>
             <div class="col-sm-3 m-4">
                 <p>details : </p>

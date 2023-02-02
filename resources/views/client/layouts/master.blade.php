@@ -23,7 +23,7 @@
                         <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link"><i class="fa fa-shopping-cart" style="font-size:25px"></i></a>
+                        <a href="{{ route('cart') }}" class="nav-link"><i class="fa fa-shopping-cart" style="font-size:25px"></i></a>
                     </li>
                     @if (auth()->check())
                     <li class="nav-item dropdown">
@@ -53,6 +53,7 @@
                             @endforeach
                         </ul>
                     </li>
+                    
                 </ul>
 
                 <div class="input-group">
@@ -92,3 +93,10 @@
 @yield('javascript')
 </html>
 @yield('style')
+ <style>
+    .item-img {
+        width : 80px;
+        height: 80px;
+        border-radius: 10px;
+    }
+ </style>

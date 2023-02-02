@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Stmt\TryCatch;
 
 class Product extends Model
 {
@@ -25,5 +26,22 @@ class Product extends Model
 
     public function category() {
         return category::find($this->category_id);
+    }
+
+    public function count_in_cart() {
+
+        $cart = auth()->user()->cart();
+
+        $item =  Item::all()
+        ->where('product_id', $this->id)
+        ->where('cart_id', $cart->id)
+        ->first();
+
+        try {
+            return $item->count;
+        }
+        catch(Exception $e) {
+            return 0;
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -46,3 +47,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+// ------------------------------------------------------------------------ buying 
+
+Route::get('/add-to-cart/{product_id}', [BuyController::class, 'add_to_cart'])->name('add_to_cart');
+
+Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart'])->name('remove_from_cart');
+
+Route::get('/cart', [BuyController::class, 'cart'])->name('cart');

@@ -23,46 +23,46 @@
                 <p class="text-muted mb-1">balance : {{ $user->balance }} toman</p>
             </div>
             <div class="col-sm-4 text-center">
-                <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit account information</button>
+                <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#editProfile">Edit account information</button>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit account information</h1>
+                    <h1 class="modal-title fs-5" id="editProfileLabel">Edit account information</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('profile.update') }}" method="Post">
                         @csrf
-                        <div class="m-2">
+                        <div class="m-1">
                             <label for="email" class="form-label">Email address</label>
                             <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" value="{{ $user->email }}">
                         </div>
-                        <div class="m-2">
+                        <div class="m-1">
                             <label for="fname" class="form-label">First name</label>
                             <input type="text" class="form-control" id="fname" name="fname" value="{{ $user->fname }}">
                         </div>
-                        <div class="m-2">
+                        <div class="m-1">
                             <label for="lname" class="form-label">last name</label>
                             <input type="text" class="form-control" id="lname" name="lname" value="{{ $user->lname }}">
                         </div>
-                        <div class="m-2">
+                        <div class="m-1">
                             <label for="number" class="form-label">Phone number</label>
                             <input type="text" class="form-control" id="number" placeholder="09xxxxxxxxx" name="number" value="{{ $user->number }}">
                         </div>
-                        <div class="m-2">
+                        <div class="m-1">
                             <label for="password" class="form-label">password</label>
                             <input type="password" class="form-control" id="password" name="password">
                         </div>
-                        <div class="m-2">
+                        <div class="m-1">
                             <label for="confirm_password" class="form-label">confirm password</label>
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password">
                         </div>
-                        <div class="m-2 d-grid">
+                        <div class="m-1 d-grid">
                             <button type="submit" class="btn btn-dark m-3">Update</button>
                         </div>
                     </form>
