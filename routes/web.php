@@ -26,9 +26,15 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about-us', [HomeController::class, 'about_us'])->name('about_us');
 
+// ------------------------------------------------------------------------ products
+
 Route::get('/product/{product_id}', [ProductController::class, 'show'])->name('product.show');
 
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
+Route::post('/product', [ProductController::class, 'filter'])->name('product.filter');
+
+Route::get('/category/{category_id}', [ProductController::class, 'category'])->name('category');
 
 // ------------------------------------------------------------------------ auth
 
@@ -50,7 +56,7 @@ Route::post('/profile/update', [ProfileController::class, 'update'])->name('prof
 
 // ------------------------------------------------------------------------ buying 
 
-Route::get('/add-to-cart/{product_id}', [BuyController::class, 'add_to_cart'])->name('add_to_cart');
+Route::get('/add-to-cart/{product_id}/', [BuyController::class, 'add_to_cart'])->name('add_to_cart');
 
 Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart'])->name('remove_from_cart');
 

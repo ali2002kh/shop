@@ -16,7 +16,7 @@ class BuyController extends Controller
         $this->middleware('auth');
     }
 
-    public function add_to_cart($product_id) {
+    public function add_to_cart(Request $request, $product_id) {
 
         $user = auth()->user();
 
@@ -46,10 +46,13 @@ class BuyController extends Controller
             $item->save();
         }
         
+        if ($request->session()->get('prev') == 'cart') {
+            return redirect()->route('cart');
+        }
         return redirect()->route('product.show', $product_id);
     }
 
-    public function remove_from_cart($product_id) {
+    public function remove_from_cart(Request $request, $product_id) {
 
         $cart = auth()->user()->cart();
 
@@ -64,11 +67,18 @@ class BuyController extends Controller
         if ($cart->countProducts() == 0) {
             $cart->delete();
         }
-        
+
+        // dd($request->session());
+
+        if ($request->session()->get('prev') == 'cart') {
+            return redirect()->route('cart');
+        }
         return redirect()->route('product.show', $product_id);
     }
 
-    public function cart() {
+    public function cart(Request $request) {
+
+        $request->session()->put('prev', 'cart');
 
         $categories = Category::all();
 

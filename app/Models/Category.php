@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    public function products() {
+        
+        return Product::all()
+        ->where('category_id', $this->id);
+    }
 }

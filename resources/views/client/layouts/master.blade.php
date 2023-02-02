@@ -22,10 +22,18 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
                     </li>
+                    @if(auth()->check())
                     <li class="nav-item">
-                        <a href="{{ route('cart') }}" class="nav-link"><i class="fa fa-shopping-cart" style="font-size:25px"></i></a>
+                        <a href="{{ route('cart') }}" class="nav-link position-relative">
+                            <i class="fa fa-shopping-cart" style="font-size:25px"></i>
+                            @if (auth()->user()->hasCart() && auth()->user()->cart()->countProducts() > 0)
+                            <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ auth()->user()->cart()->countProducts() }}
+                                <span class="visually-hidden">products in cart</span>
+                            </span>
+                            @endif
+                        </a>
                     </li>
-                    @if (auth()->check())
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             account
@@ -41,7 +49,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a href="" class="nav-link">products</a>
+                        <a href="{{ route('product.index') }}" class="nav-link">products</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,7 +57,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategory">
                             @foreach ($categories as $c)
-                            <li><a class="dropdown-item" href="#">{{ $c->name }}</a></li>
+                            <li><a class="dropdown-item" href="{{ route('category', $c->id) }}">{{ $c->name }}</a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -93,10 +101,10 @@
 @yield('javascript')
 </html>
 @yield('style')
- <style>
-    .item-img {
-        width : 80px;
-        height: 80px;
-        border-radius: 10px;
-    }
- </style>
+<style>
+.item-img {
+    width : 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+</style>
