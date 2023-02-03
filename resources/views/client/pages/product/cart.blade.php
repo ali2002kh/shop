@@ -14,7 +14,7 @@ cart
 @if (!auth()->user()->hasCart())
 <p class="lead text-center">Cart is empty</p>
 @else
-     <div class="row">
+    <div class="row">
     @foreach (auth()->user()->cart()->items() as $i)
         <div class="col-sm-12 my-1 d-flex">
             <div class="container-fluid d-flex">
@@ -47,14 +47,12 @@ cart
         <hr>
     @endforeach
         <div class="d-flex flex-wrap justify-content-between align-items-center">
-            <div class="col-md-4 d-flex align-items-center">
-              <p class="mb-3 mb-md-0 text-muted">total price : </p>
-            </div>
-            <div class="nav col-md-4 justify-content-end d-flex">{{ auth()->user()->cart()->totalPrice() }} toman</div>
+            <div class="justify-content-start lead">total price : </div>
+            <div class="justify-content-end lead">{{ auth()->user()->cart()->totalPrice() }} toman</div>
         </div>
     </div>
     <div class="m-1 d-grid">
-        <a href="#" class="btn btn-dark m-3">Continue buying process</a>
+        <a href="{{ route('checkout') }}" class="btn btn-dark m-3">Continue buying process</a>
     </div>
 @endif
 </div>

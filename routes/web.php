@@ -61,3 +61,9 @@ Route::get('/add-to-cart/{product_id}/', [BuyController::class, 'add_to_cart'])-
 Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart'])->name('remove_from_cart');
 
 Route::get('/cart', [BuyController::class, 'cart'])->name('cart');
+
+Route::get('/checkout', [BuyController::class, 'checkout'])->name('checkout');
+
+Route::post('/buy', [BuyController::class, 'buy'])->name('buy');
+
+Route::get('get-cities', [BuyController::class, 'getCities'])->name('getCities');

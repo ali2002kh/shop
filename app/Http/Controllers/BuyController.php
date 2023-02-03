@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Item;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuyController extends Controller
 {
@@ -83,5 +84,35 @@ class BuyController extends Controller
         $categories = Category::all();
 
         return view('client.pages.product.cart', compact('categories'));
+    }
+
+    public function checkout(Request $request) {
+
+        $provinces = DB::table('provinces')->get();
+
+        return view('client.pages.product.checkout', compact('provinces'));
+    }
+
+    public function getCities(Request $request) {
+
+        $cities = DB::table('cities')
+            ->where('province_id', $request->province_id)
+            ->get();
+
+        if (count($cities) > 0) {
+            return response()->json($cities);
+        }
+    }
+
+    public function buy(Request $request) {
+
+        $request->validate([
+            'zip_code' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'telephone' => 'required',
+        ]);
+
+        return dd($request);
     }
 }
