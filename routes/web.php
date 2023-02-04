@@ -64,6 +64,11 @@ Route::get('/cart', [BuyController::class, 'cart'])->name('cart');
 
 Route::get('/checkout', [BuyController::class, 'checkout'])->name('checkout');
 
+Route::get('get-cities', [BuyController::class, 'getCities'])->name('getCities');
+
 Route::post('/buy', [BuyController::class, 'buy'])->name('buy');
 
-Route::get('get-cities', [BuyController::class, 'getCities'])->name('getCities');
+Route::get('/success/{order_code}', [BuyController::class, 'success'])->name('success');
+
+Route::get('/order/{order_code}', [BuyController::class, 'order'])->name('order.show');
+

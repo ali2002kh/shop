@@ -11,18 +11,9 @@ class ProfileController extends Controller
 {
     public function show()
     {
-        $user = auth()->user();
-
         $categories = Category::all();
 
-        return view('client.pages.profile.show', compact('user', 'categories'));
-    }
-
-    public function edit()
-    {
-        $user = auth()->user();
-
-       return view('client.pages.profile.edit', compact('user'));
+        return view('client.pages.profile.show', compact('categories'));
     }
 
     public function update(Request $request)

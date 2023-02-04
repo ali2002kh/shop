@@ -29,6 +29,7 @@ class User extends Authenticatable
         
         return Cart::all()
         ->where('user_id', $this->id)
+        ->where('status', 1)
         ->count();
     }
 
@@ -36,7 +37,23 @@ class User extends Authenticatable
         
         return Cart::all()
         ->where('user_id', $this->id)
+        ->where('status', 1)
         ->first();
+    }
+
+    public function orders() {
+
+        $carts = Cart::all()
+        ->where('user_id', $this->id)
+        ->where('status', 0);
+
+        $result = [];
+
+        foreach ($carts as $cart) {
+            $result[] = $cart->order();
+        }
+
+        return $result;
     }
 
 }

@@ -53,4 +53,11 @@ class Cart extends Model
 
         return $result;
     }
+
+    public function order() {
+
+        return Order::all()
+        ->where('cart_id', $this->id)
+        ->first();
+    }
 }

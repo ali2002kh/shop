@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('city_id');
             $table->string('zip_code');
             $table->text('address');
-            $table->bigInteger('shipping_cost')->default('30000');
+            $table->bigInteger('shipping_cost')->default(30000);
             $table->bigInteger('final_price');
             $table->integer('status')->default(0);
             $table->string('code');

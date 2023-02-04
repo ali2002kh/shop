@@ -6,9 +6,11 @@ use App\Models\Cart;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class BuyController extends Controller
 {
@@ -107,12 +109,54 @@ class BuyController extends Controller
     public function buy(Request $request) {
 
         $request->validate([
-            'zip_code' => 'required',
+            'zip_code' => 'required|max:10|min:10',
             'address' => 'required',
             'city' => 'required',
-            'telephone' => 'required',
+            'telephone' => 'required|regex:/0[0-9]{2,}[0-9]{7,}$/',
         ]);
 
-        return dd($request);
+        $user = auth()->user();
+
+        $final_price = $user->cart()->totalPrice()*1.09 + 30000;
+
+        // actual payment
+
+        $order = new Order([
+            'cart_id' => $user->cart()->id,
+            'city_id' => $request->get('city'),
+            'zip_code' => $request->get('zip_code'),
+            'address' => $request->get('address'),
+            // 'shipping_cost' => 30000,
+            'final_price' => $final_price,
+            'code' => Str::random(10),
+            'telephone' => $request->get('telephone'),
+            'ordered_at' => now(),
+        ]);
+
+        $order->save();
+
+        // new Payment
+
+        $cart = $user->cart();
+        $cart->status = 0;
+        $cart->save();
+
+        return redirect()->route('success', $order->code);
+    }
+
+    public function success ($order_code) {
+
+        $order = Order::all()->where('code', $order_code)->first();
+
+        return view('client.pages.product.success', compact('order'));
+    }
+
+    public function order ($order_code) {
+
+        $order = Order::all()->where('code', $order_code)->first();
+
+        $categories = Category::all();
+
+        return view('client.pages.product.order', compact('order', 'categories'));
     }
 }
