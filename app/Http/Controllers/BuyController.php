@@ -121,6 +121,11 @@ class BuyController extends Controller
 
         // actual payment
 
+        foreach ($user->cart()->items() as $item) {
+            $item->old_price = $item->product()->price;
+            $item->save();
+        }
+
         $order = new Order([
             'cart_id' => $user->cart()->id,
             'city_id' => $request->get('city'),

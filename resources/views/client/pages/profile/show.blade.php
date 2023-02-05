@@ -28,6 +28,8 @@
         </div>
         <hr>
     </div>
+
+    @if (auth()->user()->orders())
     <div class="container my-5">
         <p class="mx-4 mb-4 lead">orders :</p>
         <div class="row">
@@ -50,11 +52,10 @@
                     <a href="{{ route('order.show', $order->code) }}" class="btn btn-info my-4"">order info</a>
                 </div>
             </div>
-            
         @endforeach
-
         </div>
     </div>
+    @endif
 
     <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
         <div class="modal-dialog">

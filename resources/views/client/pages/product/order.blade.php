@@ -25,11 +25,11 @@
                 <img class="item-img me-3" src="{{ asset('storage/product/'.$i->product()->image()) }}" alt="">
                 <div class="d-grid">
                     <p class="lead mb-1">{{ $i->product()->name }}</p>
-                    <p class="text-muted mb-1">{{ $i->product()->price }} toman</p>
+                    <p class="text-muted mb-1">{{ $i->old_price }} toman</p>
                 </div>
             </div>
             <div class="d-grid justify-content-end align-items-center w-100">
-                <p class="text-muted m-2 text-center">{{ $i->product()->price * $i->count }} toman</p>
+                <p class="text-muted m-2 text-center">{{ $i->old_price * $i->count }} toman</p>
                 <hr class="my-0">
                 <p class="text-muted m-2 text-center">count : {{ $i->count }}</p>
             </div>
@@ -38,7 +38,7 @@
     @endforeach
     <div class="d-flex flex-wrap justify-content-between align-items-center m-3">
         <div class="justify-content-start lead">total price : </div>
-        <div class="justify-content-end lead">{{ $order->cart()->totalPrice() }} toman</div>
+        <div class="justify-content-end lead">{{ $order->final_price }} toman</div>
     </div>
     </div>
 

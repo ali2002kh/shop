@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('product_id')->unsigned()->index();
             $table->bigInteger('cart_id')->unsigned()->index();
             $table->integer('count')->default(1);
+            $table->bigInteger('old_price')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')
