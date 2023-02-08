@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
 
 class HomeController extends Controller
 {
@@ -39,9 +40,11 @@ class HomeController extends Controller
         if($input != '') {
             $products = Product::where('name','LIKE',"%".$input."%")->get();
         }
+
+        return ProductResource::collection($products);
         
-        return response()->json([
-            'products' => $products,
-        ]);
+        // return response()->json([
+        //     'products' => $products,
+        // ]);
     }
 }

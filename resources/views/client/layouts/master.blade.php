@@ -80,7 +80,14 @@
                 <div class="modal-body">
                     <input type="text" class="form-control" id="search" name="search">
                     <br>
-                    <div id="search-result" class="container d-grid mt-2"></div>
+                    <div id="search-result" class="container d-grid mt-2">
+                        {{-- <div class="d-flex m-2">
+                            <img class="item-img me-3" src="{{ asset('storage/product/orange.jpg') }}" alt="">
+                            <div class="d-flex align-items-center">
+                                <p class="text-center">product name</p>
+                            </div>
+                        </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,7 +133,10 @@ $(document).ready(function() {
                         console.log(value[i])
                         var url = '{{ route("product.show", ":id") }}';
                         url = url.replace(':id', value[i].id);
-                        $('#search-result').append('<a class="nav-link" href="'+url+'"><p class="text-center">' + value[i].name + '</p></a>');
+                        var src = '{{ asset("storage/product/:img") }}'
+                        src = src.replace(':img', value[i].image);
+                        var content = '<div class="d-flex m-2"><img class="item-img me-3" src="'+src+'" alt=""><div class="d-flex align-items-center"><p class="text-center">'+value[i].name+'</p></div></div>'
+                        $('#search-result').append('<a class="nav-link" href="'+url+'">'+content+'</a>');
                     }
                 });
             }
