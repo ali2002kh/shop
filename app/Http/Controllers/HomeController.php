@@ -29,4 +29,19 @@ class HomeController extends Controller
 
         return view('client.pages.about_us', compact('categories'));
     }
+
+    public function search(Request $request) {
+
+        $input = $request->input;
+
+        $products = Product::all();
+
+        if($input != '') {
+            $products = Product::where('name','LIKE',"%".$input."%")->get();
+        }
+        
+        return response()->json([
+            'products' => $products,
+        ]);
+    }
 }

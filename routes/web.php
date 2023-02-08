@@ -26,6 +26,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about-us', [HomeController::class, 'about_us'])->name('about_us');
 
+Route::get('search', [HomeController::class, 'search'])->name('search');
+
 // ------------------------------------------------------------------------ products
 
 Route::get('/product/{product_id}', [ProductController::class, 'show'])->name('product.show');

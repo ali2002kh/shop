@@ -63,19 +63,28 @@
                     </li>
                     
                 </ul>
-
-                <div class="input-group">
-                    <div id="navbar-search-autocomplete" class="form-outline">
-                        <input type="search" id="form1" class="form-control" placeholder="Search"/>
-                    </div>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fa fa-search"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="searchModalLabel">Search</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="search" name="search">
+                    <br>
+                    <div id="search-result" class="container d-grid mt-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @yield('content')
 
@@ -99,6 +108,32 @@
     </div>
 </body>
 @yield('javascript')
+<script>
+$(document).ready(function() {
+    $('#search').on('keyup', function() {
+        $('#search-result').html('');
+        // alert('hi')
+        var input = this.value;
+        console.log(input);
+        $.ajax({
+            url: '{{ route('search') }}?input=' + input,
+            type: 'get',
+            success: function(res) {
+                console.log(res);
+                $.each(res, function(key, value) {
+                    $('#search-result').html('');
+                    for (var i = 0; i < value.length; i++) {
+                        console.log(value[i])
+                        var url = '{{ route("product.show", ":id") }}';
+                        url = url.replace(':id', value[i].id);
+                        $('#search-result').append('<a class="nav-link" href="'+url+'"><p class="text-center">' + value[i].name + '</p></a>');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
 </html>
 @yield('style')
 <style>
