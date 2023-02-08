@@ -20,7 +20,6 @@
             </div>
             <div class="col-sm-4 text-center">
                 <p class="text-muted mb-1 mt-3">number of orders : {{ sizeof(auth()->user()->orders()) }}</p>
-                <p class="text-muted mb-1">balance : {{ auth()->user()->balance }} toman</p>
             </div>
             <div class="col-sm-4 text-center">
                 <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#editProfile">Edit account information</button>

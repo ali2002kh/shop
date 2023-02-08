@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuyController;
 use App\Http\Controllers\HomeController;
@@ -73,4 +75,14 @@ Route::post('/buy', [BuyController::class, 'buy'])->name('buy');
 Route::get('/success/{order_code}', [BuyController::class, 'success'])->name('success');
 
 Route::get('/order/{order_code}', [BuyController::class, 'order'])->name('order.show');
+
+// --------------------------------------------------------------------------- admin
+
+Route::get('/admin/login_page', [AdminAuthController::class, 'login_page'])->name('admin.login_page');
+
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+
 

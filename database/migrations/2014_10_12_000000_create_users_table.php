@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
-            $table->bigInteger('balance')->default(0);
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
     }
