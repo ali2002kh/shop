@@ -78,11 +78,24 @@ Route::get('/order/{order_code}', [BuyController::class, 'order'])->name('order.
 
 // --------------------------------------------------------------------------- admin
 
+Route::get('/admin', function () {
+    return redirect('admin/dashboard');
+});
+
 Route::get('/admin/login_page', [AdminAuthController::class, 'login_page'])->name('admin.login_page');
 
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
 
+Route::get('/admin/product/delete/{product_id}', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
 
+Route::get('/admin/products/create', [AdminController::class, 'createProduct'])->name('admin.createProduct');
+
+Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.storeProduct');
+
+Route::get('/admin/product/edit/{product_id}', [AdminController::class, 'editProduct'])->name('admin.editProduct');
+
+Route::post('/admin/products/update', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');

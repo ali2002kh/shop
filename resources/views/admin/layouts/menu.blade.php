@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <a href="{{ route('admin.products') }}" class="nav-link align-middle px-0">
                             <i class="fa fa-gift"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
                         </a>
                     </li>
