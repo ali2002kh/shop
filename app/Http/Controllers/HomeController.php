@@ -35,7 +35,7 @@ class HomeController extends Controller
 
         $input = $request->input;
 
-        $products = Product::all();
+        $products = [];
 
         if($input != '') {
             $products = Product::where('name','LIKE',"%".$input."%")->get();
