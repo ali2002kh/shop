@@ -10,32 +10,33 @@
                     <li class="nav-item">
                         <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}">Home</router-link>
                     </li>
-                    <!-- @if(auth()->check())
-                    <li class="nav-item">
-                        <a href="{{ route('cart') }}" class="nav-link position-relative">
+                    <div v-if="isLoggedIn">
+                        <li class="nav-item">
+                        <a href="" class="nav-link position-relative">
                             <i class="fa fa-shopping-cart" style="font-size:25px"></i>
-                            @if (auth()->user()->hasCart() && auth()->user()->cart()->countProducts() > 0)
+                            <!-- @if (auth()->user()->hasCart() && auth()->user()->cart()->countProducts() > 0)
                             <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{ auth()->user()->cart()->countProducts() }}
                                 <span class="visually-hidden">products in cart</span>
                             </span>
-                            @endif
+                            @endif -->
                         </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            account
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
-                            <li><a class="dropdown-item" href="{{ route('profile.show') }}">profile</a></li>
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">logout</a></li>
-                        </ul>
-                    </li>
-                    @else
-                    <li class="nav-item">
-                        <a href="{{ route('signup_page') }}" class="nav-link">login/signup</a>
-                    </li>
-                    @endif -->
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                account
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
+                                <li><a class="dropdown-item" href="">profile</a></li>
+                                <li><a class="dropdown-item" @click.prevent="logout" href="#">logout</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div v-else>
+                        <li class="nav-item">
+                            <router-link :to="{name: 'login'}" class="nav-link">login/signup</router-link>
+                        </li>
+                    </div>
                     <li class="nav-item">
                         <a href="" class="nav-link">products</a>
                     </li>
@@ -80,6 +81,8 @@ export default {
     data() {
         return {
             categories: null,
+            user: null,
+            isLoggedIn: false,
         } 
     },
     created() {
@@ -88,6 +91,30 @@ export default {
             console.log(response.data.data)
             this.categories = response.data.data;
         });
+
+        axios.get('/api/user')
+        .then(response => {
+            console.log(response.data.data)
+            this.user = response.data.data;
+            this.isLoggedIn = true;
+        }).catch(error => {
+            if (error.response && 
+            error.response.status && 
+            error.response.status == 401) {
+                this.isLoggedIn = false;
+                this.user = null;
+            };
+        });
+    },
+    methods: {
+        async logout () {
+            axios.get('/logout')
+            .then(response => {
+                console.log('logout');
+                console.log(response)
+                // this.$router.go(this.$router.currentRoute)
+            })
+        }
     },
 }
 </script>

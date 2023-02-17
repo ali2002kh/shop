@@ -29,3 +29,5 @@ Route::get('newest', [HomeController::class, 'newest']);
 Route::get('product/{id}', [ProductController::class, 'show']);
 
 Route::get('categories', [HomeController::class, 'categories']);
+
+Route::get('user', [HomeController::class, 'user']);

@@ -27,22 +27,22 @@ class AuthController extends Controller
         ]);
 
         
-        $user = User::where('email', $request->get('email-or-number'))->first();
+        $user = User::where('email', $request->get('emailOrNumber'))->first();
         
         if ($user == null) {
-            $user = User::where('number', $request->get('email-or-number'))->first();
+            $user = User::where('number', $request->get('emailOrNumber'))->first();
             if ($user == null) {
-                return redirect()->route('login_page')
-                ->withErrors(['msg' => 'email or number is invalid'])->withInput();
+                // return redirect()->route('login_page')
+                // ->withErrors(['msg' => 'email or number is invalid'])->withInput();
             }
         }
 
         if (Hash::check($request->get('password'), $user->password)) {
             Auth::login($user);
-            return redirect('home');
+            // return redirect('home');
         }
-        return redirect()->route('login_page')
-        ->withErrors(['msg' => 'password is invalid'])->withInput();
+        // return redirect()->route('login_page')
+        // ->withErrors(['msg' => 'password is invalid'])->withInput();
     }
 
     public function signup(Request $request)
@@ -51,7 +51,7 @@ class AuthController extends Controller
             'number' => 'required|regex:/(09)[0-9]{9}/|unique:users',
             'email' => 'required|unique:users',
             'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password|min:8',
+            'confirmPassword' => 'required|same:password|min:8',
         ]);
 
         $user = new User([
@@ -61,12 +61,11 @@ class AuthController extends Controller
         ]);
         $user->save();
         Auth::login($user);
-        return redirect('home');
     }
 
     public function logout() {
 
         Auth::logout();
-        return redirect('home');
+        return 'logged out';
     }
 }

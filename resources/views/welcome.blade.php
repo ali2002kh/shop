@@ -8,6 +8,11 @@
         <script src="/js/app.js" defer></script>
     </head>
     <body>
+        @if (auth()->check())
+            {{ auth()->user()->email }}
+        @else
+            not logged in
+        @endif
         <div id="app">
             <index></index>
         </div>
