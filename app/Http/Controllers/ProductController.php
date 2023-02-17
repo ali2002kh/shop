@@ -2,23 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function show (Request $request, $product_id) {
+    public function show ($id) {
 
-        $request->session()->put('prev', 'product');
-        
-        $product = Product::find($product_id);
-
-        $categories = Category::all();
-
-        $popular = Product::all()->sortByDesc('sold')->take(6);
-
-        return view('client.pages.product.show', compact('product', 'categories', 'popular'));
+        return new ProductResource(Product::find($id));
     }
 
     public function category (Request $request, $category_id) {

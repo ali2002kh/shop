@@ -20,83 +20,87 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return redirect('home');
+Route::get('/{any?}', function () {
     return view('welcome');
-});
+})->where('any', '^(?!api\/)[\/\w\.\,-]*');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/', function () {
+//     // return redirect('home');
+//     return view('welcome');
+// });
 
-Route::get('/about-us', [HomeController::class, 'about_us'])->name('about_us');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('search', [HomeController::class, 'search'])->name('search');
+// Route::get('/about-us', [HomeController::class, 'about_us'])->name('about_us');
 
-// ------------------------------------------------------------------------ products
+// Route::get('search', [HomeController::class, 'search'])->name('search');
 
-Route::get('/product/{product_id}', [ProductController::class, 'show'])->name('product.show');
+// // ------------------------------------------------------------------------ products
 
-Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+// Route::get('/product/{product_id}', [ProductController::class, 'show'])->name('product.show');
 
-Route::post('/product', [ProductController::class, 'filter'])->name('product.filter');
+// Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 
-Route::get('/category/{category_id}', [ProductController::class, 'category'])->name('category');
+// Route::post('/product', [ProductController::class, 'filter'])->name('product.filter');
 
-// ------------------------------------------------------------------------ auth
+// Route::get('/category/{category_id}', [ProductController::class, 'category'])->name('category');
 
-Route::get('/signup_page', [AuthController::class, 'signup_page'])->name('signup_page');
+// // ------------------------------------------------------------------------ auth
 
-Route::get('/login_page', [AuthController::class, 'login_page'])->name('login_page');
+// Route::get('/signup_page', [AuthController::class, 'signup_page'])->name('signup_page');
 
-Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
+// Route::get('/login_page', [AuthController::class, 'login_page'])->name('login_page');
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+// Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
 
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// ------------------------------------------------------------------------ profile
+// Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+// // ------------------------------------------------------------------------ profile
 
-Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+// Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 
-// ------------------------------------------------------------------------ buying 
+// Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-Route::get('/add-to-cart/{product_id}/', [BuyController::class, 'add_to_cart'])->name('add_to_cart');
+// // ------------------------------------------------------------------------ buying 
 
-Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart'])->name('remove_from_cart');
+// Route::get('/add-to-cart/{product_id}/', [BuyController::class, 'add_to_cart'])->name('add_to_cart');
 
-Route::get('/cart', [BuyController::class, 'cart'])->name('cart');
+// Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart'])->name('remove_from_cart');
 
-Route::get('/checkout', [BuyController::class, 'checkout'])->name('checkout');
+// Route::get('/cart', [BuyController::class, 'cart'])->name('cart');
 
-Route::get('get-cities', [BuyController::class, 'getCities'])->name('getCities');
+// Route::get('/checkout', [BuyController::class, 'checkout'])->name('checkout');
 
-Route::post('/buy', [BuyController::class, 'buy'])->name('buy');
+// Route::get('get-cities', [BuyController::class, 'getCities'])->name('getCities');
 
-Route::get('/success/{order_code}', [BuyController::class, 'success'])->name('success');
+// Route::post('/buy', [BuyController::class, 'buy'])->name('buy');
 
-Route::get('/order/{order_code}', [BuyController::class, 'order'])->name('order.show');
+// Route::get('/success/{order_code}', [BuyController::class, 'success'])->name('success');
 
-// --------------------------------------------------------------------------- admin
+// Route::get('/order/{order_code}', [BuyController::class, 'order'])->name('order.show');
 
-Route::get('/admin', function () {
-    return redirect('admin/dashboard');
-});
+// // --------------------------------------------------------------------------- admin
 
-Route::get('/admin/login_page', [AdminAuthController::class, 'login_page'])->name('admin.login_page');
+// Route::get('/admin', function () {
+//     return redirect('admin/dashboard');
+// });
 
-Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
+// Route::get('/admin/login_page', [AdminAuthController::class, 'login_page'])->name('admin.login_page');
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+// Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
-Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
+// Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-Route::get('/admin/product/delete/{product_id}', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
+// Route::get('/admin/products', [AdminController::class, 'products'])->name('admin.products');
 
-Route::get('/admin/products/create', [AdminController::class, 'createProduct'])->name('admin.createProduct');
+// Route::get('/admin/product/delete/{product_id}', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
 
-Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.storeProduct');
+// Route::get('/admin/products/create', [AdminController::class, 'createProduct'])->name('admin.createProduct');
 
-Route::get('/admin/product/edit/{product_id}', [AdminController::class, 'editProduct'])->name('admin.editProduct');
+// Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.storeProduct');
 
-Route::post('/admin/products/update', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');
+// Route::get('/admin/product/edit/{product_id}', [AdminController::class, 'editProduct'])->name('admin.editProduct');
+
+// Route::post('/admin/products/update', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');

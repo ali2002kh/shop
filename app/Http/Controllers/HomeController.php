@@ -9,6 +9,36 @@ use App\Http\Resources\ProductResource;
 
 class HomeController extends Controller
 {
+
+    public function recommended () {
+
+        $recommended = Product::where('recommended', true)
+        ->orderBy('created_at', 'DESC')->take(5)->get();
+
+        return (ProductResource::collection($recommended));
+    }
+
+    public function popular () {
+
+        $popular = Product::all()->sortByDesc('sold')->take(6);
+
+        return (ProductResource::collection($popular));
+    }
+
+    public function newest () {
+
+        $newest = Product::all()->sortByDesc('created_at')->take(6);
+
+        return (ProductResource::collection($newest));
+    }
+
+    public function categories () {
+
+        $categories = Category::all();
+
+        return $categories;
+    }
+
     public function index() {
 
         $recommended = Product::where('recommended', true)

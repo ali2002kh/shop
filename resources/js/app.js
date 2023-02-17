@@ -1,10 +1,11 @@
 require('./bootstrap')
+import * as Vue from 'vue'
+import Index from './Index'
+import router from './routes'
 
-import { createApp } from 'vue'
-import Welcome from './components/Welcome'
+const app = Vue.createApp({})
 
-const app = createApp({})
+app.component('index', Index)
 
-app.component('welcome', Welcome)
+app.use(router).mount('#app')
 
-app.mount('#app')

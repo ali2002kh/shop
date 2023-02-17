@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('recommended', [HomeController::class, 'recommended']);
+
+Route::get('popular', [HomeController::class, 'popular']);
+
+Route::get('newest', [HomeController::class, 'newest']);
+
+Route::get('product/{id}', [ProductController::class, 'show']);
+
+Route::get('categories', [HomeController::class, 'categories']);
