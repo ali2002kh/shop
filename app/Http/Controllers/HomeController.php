@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class HomeController extends Controller
 
         $categories = Category::all();
 
-        return $categories;
+        return (CategoryResource::collection($categories));
     }
 
     public function user () {

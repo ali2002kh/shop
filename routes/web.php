@@ -46,7 +46,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 
-// Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 // // ------------------------------------------------------------------------ buying 
 

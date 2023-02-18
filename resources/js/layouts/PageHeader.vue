@@ -27,7 +27,9 @@
                                 account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
-                                <li><a class="dropdown-item" href="">profile</a></li>
+                                <li><router-link class="dropdown-item" 
+                                    :to="{name: 'profile'}"
+                                    >profile</router-link></li>
                                 <li><a class="dropdown-item" 
                                     @click.prevent="logout" href="#"
                                     >logout</a></li>
@@ -113,6 +115,7 @@ export default {
             .then(response => {
                 this.isLoggedIn = false;
                 this.user = null;
+                this.$router.push('/login')
             })
         }
     },

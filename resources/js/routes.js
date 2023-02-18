@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Profile from "./pages/Profile";
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         path: "/signup",
         component: Signup,
         name:"signup",
+    },
+    {
+        path: "/profile",
+        component: Profile,
+        name:"profile",
     },
 ];
 

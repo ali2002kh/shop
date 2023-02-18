@@ -2,34 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ProfileController extends Controller
-{
+class ProfileController extends Controller {
 
-    public function __construct() {
-        $this->middleware('auth');
-    }
+    public function update(Request $request) {
 
-    public function show()
-    {
-        $categories = Category::all();
-
-        return view('client.pages.profile.show', compact('categories'));
-    }
-
-    public function update(Request $request)
-    {
         $user = auth()->user();
 
         $request->validate([
-            'number' => ['regex:/(09)[0-9]{9}/', Rule::unique('users')->ignore($user->id)],
-            'email' => [Rule::unique('users')->ignore($user->id)],
+            'number' => ['regex:/(09)[0-9]{9}/', 'required' , Rule::unique('users')->ignore($user->id)],
+            'email' => [Rule::unique('users')->ignore($user->id), 'required'],
             'password' => 'min:8|nullable',
-            'confirm_password' => 'same:password',
+            'confirmPassword' => 'same:password',
         ]);
 
         if (!is_null($request->get('fname'))) {
@@ -54,9 +41,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-
-
-       return redirect()->route('profile.show');
+       return abort(200, 'information successfully updated');
     }
 
 }
