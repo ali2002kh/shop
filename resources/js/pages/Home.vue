@@ -38,6 +38,7 @@
     <popular></popular>
     <newest></newest>
 </div>
+<page-footer></page-footer>
 </template>
 
 <script>
@@ -45,12 +46,14 @@
 import Popular from "../layouts/Popular"
 import Newest from "../layouts/Newest"
 import PageHeader from "../layouts/PageHeader"
+import PageFooter from "../layouts/PageFooter"
 
 export default {
     components: {
         Popular,
         Newest,
         PageHeader,
+        PageFooter,
     },
     data() {
         return {

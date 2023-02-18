@@ -4,6 +4,7 @@ import Product from "./pages/Product";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import AboutUs from "./pages/AboutUs";
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
         path: "/profile",
         component: Profile,
         name:"profile",
+    },
+    {
+        path: "/about-us",
+        component: AboutUs,
+        name:"about-us",
     },
 ];
 

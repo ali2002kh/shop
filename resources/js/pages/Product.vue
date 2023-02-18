@@ -50,17 +50,20 @@
         </div>
         <popular></popular>
     </div>
+    <page-footer></page-footer>
 </template>
 
 <script>
 
 import Popular from "../layouts/Popular"
 import PageHeader from "../layouts/PageHeader"
+import PageFooter from "../layouts/PageFooter"
 
 export default {
     components: {
         Popular,
         PageHeader,
+        PageFooter,
     },
     data() {
         return {

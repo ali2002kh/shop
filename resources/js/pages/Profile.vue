@@ -112,16 +112,19 @@
             </div>
         </div>
     </div>
+    <page-footer></page-footer>
 </template>
 
 
 <script>
 
 import PageHeader from "../layouts/PageHeader"
+import PageFooter from "../layouts/PageFooter"
 
 export default {
     components: {
         PageHeader,
+        PageFooter,
     },
     data() {
         return {
