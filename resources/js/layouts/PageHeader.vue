@@ -10,8 +10,8 @@
                     <li class="nav-item">
                         <router-link class="nav-link active" aria-current="page" :to="{name: 'home'}">Home</router-link>
                     </li>
-                    <div v-if="isLoggedIn">
-                        <li class="nav-item">
+                    
+                        <li class="nav-item" v-if="isLoggedIn">
                         <a href="" class="nav-link position-relative">
                             <i class="fa fa-shopping-cart" style="font-size:25px"></i>
                             <!-- @if (auth()->user()->hasCart() && auth()->user()->cart()->countProducts() > 0)
@@ -22,21 +22,22 @@
                             @endif -->
                         </a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" v-if="isLoggedIn">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownAccount">
                                 <li><a class="dropdown-item" href="">profile</a></li>
-                                <li><a class="dropdown-item" @click.prevent="logout" href="#">logout</a></li>
+                                <li><a class="dropdown-item" 
+                                    @click.prevent="logout" href="#"
+                                    >logout</a></li>
                             </ul>
                         </li>
-                    </div>
-                    <div v-else>
-                        <li class="nav-item">
+                    
+                        <li class="nav-item" v-else>
                             <router-link :to="{name: 'login'}" class="nav-link">login/signup</router-link>
                         </li>
-                    </div>
+                    
                     <li class="nav-item">
                         <a href="" class="nav-link">products</a>
                     </li>
@@ -108,11 +109,10 @@ export default {
     },
     methods: {
         async logout () {
-            axios.get('/logout')
+            axios.post('/logout')
             .then(response => {
-                console.log('logout');
-                console.log(response)
-                // this.$router.go(this.$router.currentRoute)
+                this.isLoggedIn = false;
+                this.user = null;
             })
         }
     },

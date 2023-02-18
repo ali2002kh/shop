@@ -2,33 +2,37 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-sm-6 m-10">
-                <!-- @include('client.layouts.error') -->
+                <div class="alert alert-danger" v-if="hasError">
+                    <ul>
+                        <li v-for="e in errors" :key="e">{{ e[0] }}</li>
+                    </ul>
+                </div>
                 <form>
                     <div class="m-3">
                         <label for="email" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="email" 
-                        placeholder="name@example.com" name="email" required
+                        placeholder="name@example.com" name="email"
                         v-model="email"
                         >
                     </div>
                     <div class="m-3">
                         <label for="number" class="form-label">Phone number</label>
                         <input type="text" class="form-control" id="number" 
-                        placeholder="09xxxxxxxxx" name="number" required
+                        placeholder="09xxxxxxxxx" name="number"
                         v-model="number"
                         >
                     </div>
                     <div class="m-3">
                         <label for="password" class="form-label">password</label>
                         <input type="password" class="form-control" 
-                        id="password" name="password" required
+                        id="password" name="password"
                         v-model="password"
                         >
                     </div>
                     <div class="m-3">
                         <label for="confirmPassword" class="form-label">confirm password</label>
                         <input type="password" class="form-control" 
-                        id="confirmPassword" name="confirmPassword" required
+                        id="confirmPassword" name="confirmPassword"
                         v-model="confirmPassword"
                         >
                     </div>
@@ -58,6 +62,8 @@ export default {
             password: null,
             confirmPassword: null,
             loading: false,
+            hasError: false,
+            errors: [],
         }
     },
     methods: {
@@ -75,9 +81,14 @@ export default {
                     this.$router.push('/');
                 })
             } catch (error) {
-                
+                if (error.response && 
+                    error.response.status && 
+                    error.response.status == 422) {
+                        this.hasError = true
+                        console.log(error.response.data)
+                        this.errors = error.response.data.errors
+                }
             }
-
             this.loading = false;
         }  
     }, 
