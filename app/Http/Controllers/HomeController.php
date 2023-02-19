@@ -43,35 +43,13 @@ class HomeController extends Controller
     }
 
     public function user () {
-        // Auth::logout();
+        
         if (Auth::check()) {
             return new UserResource(auth()->user());
         } else {
             return abort(401);
         }
         
-    }
-
-    public function index() {
-
-        $recommended = Product::where('recommended', true)
-        ->orderBy('created_at', 'DESC')->take(5)->get();
-
-        $popular = Product::all()->sortByDesc('sold')->take(6);
-        
-        $newest = Product::all()->sortByDesc('created_at')->take(6);
-
-        $categories = Category::all();
-
-        return view('client.pages.home', compact('recommended', 'popular', 'newest', 'categories'));
-    }
-
-    public function about_us()
-    {
-
-        $categories = Category::all();
-
-        return view('client.pages.about_us', compact('categories'));
     }
 
     public function search(Request $request) {
