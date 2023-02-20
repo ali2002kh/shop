@@ -33,6 +33,10 @@ class Product extends Model
 
         $cart = auth()->user()->cart();
 
+        if ($cart == null) {
+            return 0;
+        }
+
         $item =  Item::all()
         ->where('product_id', $this->id)
         ->where('cart_id', $cart->id)

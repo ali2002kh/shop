@@ -27,10 +27,15 @@ class User extends Authenticatable
 
     public function hasCart() {
         
-        return Cart::all()
+        $count = Cart::all()
         ->where('user_id', $this->id)
         ->where('status', 1)
         ->count();
+
+        if ($count > 0) {
+            return true;
+        }
+        return false;
     }
 
     public function cart() {

@@ -27,14 +27,15 @@
                 <p class="text-muted">number remaining : {{ product.count }}</p>
                 <p class="text-muted">category : {{ product.category }}</p>
                 <div class="m-1 d-grid">
-                    <a href="" class="btn btn-primary my-1">add to cart</a>
-                    <!-- @if (auth()->user()->hasCart() && $product->count_in_cart() > 0)
-                        <a href="" class="btn btn-danger my-1">remove from cart</a>
-                    @endif -->
+                    <button type="submit" class="btn btn-primary my-1"
+                    @click.prevent="add"
+                    >add to cart</button>
+                    <button type="submit" class="btn btn-danger my-1"
+                    v-if="inCart"
+                    @click.prevent="remove"
+                    >remove from cart</button>
                 </div>
-                <!-- @if (auth()->user()->hasCart())
-                <p class="lead">in the cart : {{ $product->count_in_cart() }}</p>
-                @endif -->
+                <p class="lead" v-if="hasCart">in the cart : {{ count_in_cart }}</p>   
             </div>
             <div class="col-sm-3 m-4">
                 <p>details : </p>
@@ -68,14 +69,58 @@ export default {
     data() {
         return {
             product: null,
+            hasCart: false,
+            inCart: false,
+            count_in_cart: 0,
         }
     },
     created() {
+        axios.get('/api/user')
+        .then(response => {
+            this.hasCart = response.data.data.has_cart
+        })
         axios.get(`/api/product/${this.$route.params.id}`)
         .then(response => {
             console.log(response.data.data)
             this.product = response.data.data
+            if (this.hasCart) {
+                this.count_in_cart = this.product.count_in_cart
+                if (this.count_in_cart > 0) {
+                    this.inCart = true
+                }
+            }
         })
     },  
+    methods: {
+        async add () {
+            console.log('add')
+            axios.get(`/api/add-to-cart/${this.$route.params.id}`)
+            .then(response => {
+                console.log("count in cart : "+response.data)
+                this.count_in_cart = response.data
+            }).catch(error => {
+                if (error.response && 
+                error.response.status && 
+                error.response.status == 401) {
+                    console.log('401')
+                    this.$router.push('/login')
+            };
+            })
+            if (this.count_in_cart > 0) {
+                this.inCart = true
+            }
+        },
+        async remove () {
+            console.log('remove')
+            axios.get(`/api/remove-from-cart/${this.$route.params.id}`)
+            .then(response => {
+                console.log("count in cart : "+response.data)
+                this.count_in_cart = response.data
+            })
+            if (this.count_in_cart == 0) {
+                this.inCart = false
+            }
+        }
+    },
 }
 </script>

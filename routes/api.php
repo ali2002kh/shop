@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -31,3 +32,7 @@ Route::get('product/{id}', [ProductController::class, 'show']);
 Route::get('categories', [HomeController::class, 'categories']);
 
 Route::get('user', [HomeController::class, 'user']);
+
+Route::get('/add-to-cart/{product_id}/', [BuyController::class, 'add_to_cart']);
+
+Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart']);

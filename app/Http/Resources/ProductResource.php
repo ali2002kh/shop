@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
             'category' => $this->category()->name,
             'description' => $this->description,
             'details' => $this->details,
+            'count_in_cart' => $this->count_in_cart(),
         ];
     }
 }

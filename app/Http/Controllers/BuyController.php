@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
-use App\Models\User;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
@@ -12,14 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class BuyController extends Controller
-{
+class BuyController extends Controller {
 
-    public function __construct() {
-        $this->middleware('auth');
-    }
+    public function add_to_cart($product_id) {
 
-    public function add_to_cart(Request $request, $product_id) {
+        if (!auth()->check()) {
+            return abort(401);
+        }
 
         $user = auth()->user();
 
@@ -48,14 +46,17 @@ class BuyController extends Controller
             ]);
             $item->save();
         }
+
+        $product = Product::find($product_id);
         
-        if ($request->session()->get('prev') == 'cart') {
-            return redirect()->route('cart');
-        }
-        return redirect()->route('product.show', $product_id);
+        return $product->count_in_cart();
     }
 
     public function remove_from_cart(Request $request, $product_id) {
+
+        if (!auth()->check()) {
+            return abort(401);
+        }
 
         $cart = auth()->user()->cart();
 
@@ -71,12 +72,9 @@ class BuyController extends Controller
             $cart->delete();
         }
 
-        // dd($request->session());
-
-        if ($request->session()->get('prev') == 'cart') {
-            return redirect()->route('cart');
-        }
-        return redirect()->route('product.show', $product_id);
+        $product = Product::find($product_id);
+        
+        return $product->count_in_cart();
     }
 
     public function cart(Request $request) {
