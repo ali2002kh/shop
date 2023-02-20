@@ -8,7 +8,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -44,7 +43,7 @@ class HomeController extends Controller
 
     public function user () {
         
-        if (Auth::check()) {
+        if (auth()->check()) {
             return new UserResource(auth()->user());
         } else {
             return abort(401);

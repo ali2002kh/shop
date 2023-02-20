@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpParser\Node\Stmt\TryCatch;
 
+use function PHPUnit\Framework\returnSelf;
+
 class Product extends Model
 {
     use HasFactory;
@@ -31,11 +33,17 @@ class Product extends Model
 
     public function count_in_cart() {
 
-        $cart = auth()->user()->cart();
+        $user = auth()->user();
 
-        if ($cart == null) {
+        if ($user == null) {
             return 0;
         }
+
+        if (!$user->hasCart()) {
+            return 0;
+        }
+
+        $cart = $user->cart();
 
         $item =  Item::all()
         ->where('product_id', $this->id)
@@ -48,5 +56,34 @@ class Product extends Model
         catch(Exception $e) {
             return 0;
         }
+    }
+
+    public function alone_in_cart() {
+
+        $user = auth()->user();
+
+        if ($user == null || !$user->hasCart()) {
+            return true;
+        }
+
+        $cart = $user->cart();
+
+        $item =  Item::all()
+        ->where('product_id', $this->id)
+        ->where('cart_id', $cart->id)
+        ->first();
+
+        try {
+            foreach ($cart->items() as $i) {
+                if ($i->id != $item->id) {
+                    return false;
+                }
+            }
+            return true;
+
+        } catch (Exception $e) {
+            return null;
+        }
+            
     }
 }

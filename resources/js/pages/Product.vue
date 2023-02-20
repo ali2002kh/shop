@@ -72,6 +72,7 @@ export default {
             hasCart: false,
             inCart: false,
             count_in_cart: 0,
+            onlyProductInCart: true,
         }
     },
     created() {
@@ -87,6 +88,7 @@ export default {
                 this.count_in_cart = this.product.count_in_cart
                 if (this.count_in_cart > 0) {
                     this.inCart = true
+                    this.onlyProductInCart = this.product.alone_in_cart
                 }
             }
         })
@@ -98,28 +100,32 @@ export default {
             .then(response => {
                 console.log("count in cart : "+response.data)
                 this.count_in_cart = response.data
+                this.hasCart = true
+                this.inCart = true
             }).catch(error => {
                 if (error.response && 
                 error.response.status && 
                 error.response.status == 401) {
                     console.log('401')
                     this.$router.push('/login')
-            };
+                };
             })
-            if (this.count_in_cart > 0) {
-                this.inCart = true
-            }
         },
         async remove () {
+            this.inCart = false
             console.log('remove')
             axios.get(`/api/remove-from-cart/${this.$route.params.id}`)
             .then(response => {
                 console.log("count in cart : "+response.data)
                 this.count_in_cart = response.data
+                if (this.count_in_cart > 0) {
+                    this.inCart = true
+                } else {
+                    if (this.onlyProductInCart) {
+                        this.hasCart = false
+                    }
+                }
             })
-            if (this.count_in_cart == 0) {
-                this.inCart = false
-            }
         }
     },
 }
