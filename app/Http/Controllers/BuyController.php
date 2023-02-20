@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CartResource;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Item;
@@ -52,7 +53,7 @@ class BuyController extends Controller {
         return $product->count_in_cart();
     }
 
-    public function remove_from_cart(Request $request, $product_id) {
+    public function remove_from_cart($product_id) {
 
         if (!auth()->check()) {
             return abort(401);
@@ -77,13 +78,9 @@ class BuyController extends Controller {
         return $product->count_in_cart();
     }
 
-    public function cart(Request $request) {
+    public function cart() {
 
-        $request->session()->put('prev', 'cart');
-
-        $categories = Category::all();
-
-        return view('client.pages.product.cart', compact('categories'));
+        return new CartResource(auth()->user()->cart());
     }
 
     public function checkout(Request $request) {

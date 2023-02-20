@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import AboutUs from "./pages/AboutUs";
+import Cart from "./pages/Cart";
 
 const routes = [
     {
@@ -36,6 +37,11 @@ const routes = [
         path: "/about-us",
         component: AboutUs,
         name:"about-us",
+    },
+    {
+        path: "/cart",
+        component: Cart,
+        name:"cart",
     },
 ];
 

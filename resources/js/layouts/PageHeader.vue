@@ -12,7 +12,7 @@
                     </li>
                     
                         <li class="nav-item" v-if="isLoggedIn">
-                        <a href="" class="nav-link position-relative">
+                        <router-link :to="{name: 'cart'}" class="nav-link position-relative">
                             <i class="fa fa-shopping-cart" style="font-size:25px"></i>
                             <!-- @if (auth()->user()->hasCart() && auth()->user()->cart()->countProducts() > 0)
                             <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
@@ -20,7 +20,7 @@
                                 <span class="visually-hidden">products in cart</span>
                             </span>
                             @endif -->
-                        </a>
+                        </router-link>
                         </li>
                         <li class="nav-item dropdown" v-if="isLoggedIn">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown" aria-expanded="false">
