@@ -83,22 +83,23 @@ class BuyController extends Controller {
         return new CartResource(auth()->user()->cart());
     }
 
-    public function checkout(Request $request) {
+    public function provinces() {
 
         $provinces = DB::table('provinces')->get();
 
-        return view('client.pages.product.checkout', compact('provinces'));
+        if (count($provinces) > 0) {
+            return response()->json($provinces);
+        }
     }
 
-    public function getCities(Request $request) {
+    public function cities(Request $request) {
 
         $cities = DB::table('cities')
-            ->where('province_id', $request->province_id)
+            ->where('province_id', $request->get('province'))
             ->get();
 
-        if (count($cities) > 0) {
-            return response()->json($cities);
-        }
+        return $request->get('province');
+ 
     }
 
     public function buy(Request $request) {

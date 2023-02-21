@@ -38,3 +38,7 @@ Route::get('/add-to-cart/{product_id}/', [BuyController::class, 'add_to_cart']);
 Route::get('/remove-from-cart/{product_id}', [BuyController::class, 'remove_from_cart']);
 
 Route::get('cart', [BuyController::class, 'cart']);
+
+Route::get('provinces', [BuyController::class, 'provinces']);
+
+Route::post('cities', [BuyController::class, 'cities']);

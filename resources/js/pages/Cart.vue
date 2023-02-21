@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="m-1 d-grid" v-if="hasCart">
-            <a href="" class="btn btn-dark m-3">Continue buying process</a>
+            <router-link :to="{name: 'checkout'}" class="btn btn-dark m-3">Continue buying process</router-link>
         </div>
         <p v-else class="lead text-center">Cart is empty</p>
     </div>
@@ -75,36 +75,40 @@ export default {
     methods: {
         async add (product_id) {
             console.log('add')
-            axios.get('/api/user')
+            axios.get(`/api/add-to-cart/${product_id}`)
             .then(response => {
-                this.hasCart = response.data.data.has_cart
-                axios.get(`/api/add-to-cart/${product_id}`)
+                console.log("count in cart : "+response.data)
+                axios.get('/api/cart')
                 .then(response => {
-                    console.log("count in cart : "+response.data)
-                    axios.get('/api/cart')
-                    .then(response => {
-                        console.log(response.data.data)
-                        this.cart = response.data.data
-                    })
+                    console.log(response.data.data)
+                    this.cart = response.data.data
                 })
             })
         },
         async remove (product_id) {
             console.log('remove')
-            axios.get('/api/user')
+            axios.get(`/api/remove-from-cart/${product_id}`)
             .then(response => {
-                this.hasCart = response.data.data.has_cart
-                axios.get(`/api/remove-from-cart/${product_id}`)
+                console.log("count in cart : "+response.data)
+                axios.get('/api/cart')
                 .then(response => {
-                    console.log("count in cart : "+response.data)
-                    axios.get('/api/cart')
-                    .then(response => {
-                        console.log(response.data.data)
-                        this.cart = response.data.data
-                    })
+                    console.log(response.data.data)
+                    this.cart = response.data.data
+                }).catch(error => {
+                    this.hasCart = false
                 })
             })
+            
         }
     },
 }
 </script>
+
+<style scoped>
+
+.item-img {
+    width : 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+</style>
