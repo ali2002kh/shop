@@ -26,15 +26,19 @@
             </div>
 
             <div class="col-sm-6 rounded-3 m-1 px-0">
-                <!-- @include('client.layouts.error') -->
-                <form id="buy-form" action="{{ route('buy') }}" method="Post">
+                <div class="alert alert-danger" v-if="hasError">
+                        <ul>
+                            <li v-for="e in errors" :key="e">{{ e[0] }}</li>
+                        </ul>
+                    </div>
+                <form>
                     <div class="d-flex justify-content-between align-items-center m-1">
                         <select class="form-select form-select-lg m-1 text-muted"  
                         style="font-size:16px" name="province" id="province"
                         v-model="province" @change="updateCities"
                         >
                             <option disabled value="">province</option>
-                            <option v-for="p in provinces" :key="p.id" value="{{ p.id }}">
+                            <option v-for="p in provinces" :key="p.id" :value="p.id">
                                 {{ p.name }}
                             </option>
                         </select>
@@ -42,7 +46,10 @@
                         style="font-size:16px" id="city"
                         v-model="city"
                         >
-                            <option value="">city</option>
+                            <option disabled value="">city</option>
+                            <option v-for="c in cities" :key="c.id" :value="c.id">
+                                {{ c.name }}
+                            </option>
                         </select>
                     </div>
                     <div class="m-1">
@@ -117,6 +124,9 @@ export default {
             zip_code: null,
             telephone: null,
             address: null,
+            orderCode: null,
+            hasError: false,
+            errors: [],
         }
     },
     created() {
@@ -133,14 +143,33 @@ export default {
     },  
     methods: {
         async pay() {
-            
+            this.hasError = false
+            this.errors = []
+            axios.post('/api/buy', {
+                city: this.city,
+                telephone: this.telephone,
+                address: this.address,
+                zip_code: this.zip_code
+            }).then(response => {
+                console.log(response.data)
+                this.orderCode = response.data
+                // .push(/success)
+            }).catch(error => {
+                if (error.response && 
+                    error.response.status && 
+                    error.response.status == 422) {
+                        this.hasError = true
+                        console.log(error.response.data)
+                        this.errors = error.response.data.errors
+                }
+            })
         },
         async updateCities() {
             axios.post('/api/cities', {
                 province: this.province
-            })
-            .then(response => {
-                console.log(response)
+            }).then(response => {
+                console.log(response.data)
+                this.cities = response.data
             })
         }
     }

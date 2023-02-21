@@ -42,3 +42,5 @@ Route::get('cart', [BuyController::class, 'cart']);
 Route::get('provinces', [BuyController::class, 'provinces']);
 
 Route::post('cities', [BuyController::class, 'cities']);
+
+Route::post('/buy', [BuyController::class, 'buy']);

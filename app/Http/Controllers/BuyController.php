@@ -98,7 +98,7 @@ class BuyController extends Controller {
             ->where('province_id', $request->get('province'))
             ->get();
 
-        return $request->get('province');
+        return $cities;
  
     }
 
@@ -142,7 +142,7 @@ class BuyController extends Controller {
         $cart->status = 0;
         $cart->save();
 
-        return redirect()->route('success', $order->code);
+        return $order->code;
     }
 
     public function success ($order_code) {
