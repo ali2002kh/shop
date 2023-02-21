@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CartResource;
+use App\Http\Resources\OrderResource;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Item;
@@ -145,19 +146,10 @@ class BuyController extends Controller {
         return $order->code;
     }
 
-    public function success ($order_code) {
-
-        $order = Order::all()->where('code', $order_code)->first();
-
-        return view('client.pages.product.success', compact('order'));
-    }
-
     public function order ($order_code) {
 
         $order = Order::all()->where('code', $order_code)->first();
 
-        $categories = Category::all();
-
-        return view('client.pages.product.order', compact('order', 'categories'));
+        return new OrderResource($order);
     }
 }

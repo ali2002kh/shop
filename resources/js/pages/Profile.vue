@@ -43,7 +43,7 @@
                     <div class="justify-content-end">{{ order.status }}</div>
                 </div>
                 <div class="m-1 d-grid">
-                    <a href="" class="btn btn-info my-4">order info</a>
+                    <router-link :to="{name: 'order', params: {code: order.code}}" class="btn btn-info my-4">order info</router-link>
                 </div>
             </div>
         </div>

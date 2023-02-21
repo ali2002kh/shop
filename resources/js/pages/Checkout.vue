@@ -1,6 +1,16 @@
 <template>
     <page-header></page-header>
-    <div class="container my-2 d-grid">
+    <div v-if="success" class="container my-4 d-grid" style="max-width:500px">
+        <h2 class="text-center text-success display-6" style="font-size:30px">Order successfully submitted</h2>
+        <i class="fa fa-check text-success text-center" style="font-size:50px"></i>
+        <div class="d-flex flex-wrap m-2 justify-content-between align-items-center">
+            <div class="justify-content-start">order code : </div>
+            <div class="justify-content-end">{{ orderCode }}</div>
+        </div>
+        <router-link :to="{name: 'order', params: {code: orderCode}}" class="btn btn-info mx-3 my-2">order info</router-link>
+        <router-link :to="{name: 'home'}" class="btn btn-success mx-3 my-2">return to shop</router-link>
+    </div>
+    <div v-else class="container my-2 d-grid">
         <div class="row">
             <div class="col-sm-12 rounded-3 m-1">
                 <p class="lead">Checkout</p>
@@ -127,6 +137,7 @@ export default {
             orderCode: null,
             hasError: false,
             errors: [],
+            success: false,
         }
     },
     created() {
@@ -153,6 +164,7 @@ export default {
             }).then(response => {
                 console.log(response.data)
                 this.orderCode = response.data
+                this.success = true
                 // .push(/success)
             }).catch(error => {
                 if (error.response && 

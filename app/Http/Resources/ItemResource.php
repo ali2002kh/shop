@@ -26,6 +26,7 @@ class ItemResource extends JsonResource
             'product_price' => $this->product()->price,
             'count' => $this->count,
             'count_one' => $count_one,
+            'old_price' => $this->old_price,
         ];
     }
 }

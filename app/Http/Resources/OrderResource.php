@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             'code' => $this->code,
             'final_price' => $this->final_price,
             'status' => $this->status(),
+            'cart' => new CartResource($this->cart()),
         ];
     }
 }

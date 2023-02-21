@@ -44,3 +44,5 @@ Route::get('provinces', [BuyController::class, 'provinces']);
 Route::post('cities', [BuyController::class, 'cities']);
 
 Route::post('/buy', [BuyController::class, 'buy']);
+
+Route::get('/order/{order_code}', [BuyController::class, 'order']);
