@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm-4" v-for="p in popular" :key="p.id">
             <div class="card mb-10">
-                <img src="" class="card-img-top" alt="...">
+                <img :src="p.image" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ p.name }}</h5>
                     <p class="card-text">{{ p.price }} toman</p>

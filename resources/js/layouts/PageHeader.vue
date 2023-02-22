@@ -75,7 +75,7 @@
                     <div class="container d-grid mt-2">
                         <a href="" v-for="p in products" :key="p.id" class="nav-link" @click.prevent="showProduct(p.id)">
                             <div class="d-flex m-2">
-                                <img class="item-img me-3" src="" alt="">
+                                <img class="item-img me-3" :src="p.image" alt="">
                                 <div class="d-flex align-items-center">
                                     <p class="text-center">{{ p.name }}</p>
                                 </div>

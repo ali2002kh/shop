@@ -5,8 +5,8 @@
             <div class="col-sm-5 my-3">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img v-for="img in product.images" :key="img.id" :src="img.link" class="d-block w-100" alt="...">
+                    <div class="carousel-item active" v-for="img in product.images" :key="img.id">
+                        <img :src="img.link" class="d-block w-100" alt="...">
                     </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

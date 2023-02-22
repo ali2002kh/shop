@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-sm-12 my-1 d-flex" v-for="i in order.cart.items" :key="i.product_id">
                 <div class="container-fluid d-flex align-items-center">
-                    <img class="item-img me-3" src="" alt="">
+                    <img class="item-img me-3" :src="i.product_image" alt="">
                     <div class="d-grid">
                         <p class="lead mb-1">{{ i.product_name }}</p>
                         <p class="text-muted mb-1">{{ i.old_price }} toman</p>

@@ -5,7 +5,7 @@
             <div class="col-sm-12 my-1 d-flex" v-for="i in cart.items" :key="i.product_id">
                 <div class="container-fluid d-flex">
                     <router-link :to="{name: 'product', params: {id: i.product_id}}">
-                        <img class="item-img me-3" src="" alt="">
+                        <img class="item-img me-3" :src="i.product_image" alt="">
                     </router-link>
                     <div class="d-grid">
                         <p class="lead mb-1">{{ i.product_name }}</p>

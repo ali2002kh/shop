@@ -6,7 +6,7 @@
         </div>
         <div class="col-sm-4" v-for="n in newest" :key="n.id">
             <div class="card mb-10">
-                <img src="" class="card-img-top" alt="...">
+                <img :src="n.image" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ n.name }}</h5>
                     <p class="card-text">{{ n.price }} toman</p>

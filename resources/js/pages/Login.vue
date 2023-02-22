@@ -32,7 +32,7 @@
                 </form>
             </div>
             <div class="col-sm-6 m-10">
-                <img src="" class="img-fluid" alt="shop image">
+                <img src="storage/img/shop.jpg" class="img-fluid" alt="shop image">
             </div>
         </div> 
     </div>

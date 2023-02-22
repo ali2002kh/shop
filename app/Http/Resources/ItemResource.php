@@ -27,6 +27,7 @@ class ItemResource extends JsonResource
             'count' => $this->count,
             'count_one' => $count_one,
             'old_price' => $this->old_price,
+            'product_image' => '/storage/product/'.$this->product()->image(),
         ];
     }
 }
