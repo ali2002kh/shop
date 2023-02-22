@@ -14,12 +14,11 @@
                         <li class="nav-item" v-if="isLoggedIn">
                         <router-link :to="{name: 'cart'}" class="nav-link position-relative">
                             <i class="fa fa-shopping-cart" style="font-size:25px"></i>
-                            <!-- @if (auth()->user()->hasCart() && auth()->user()->cart()->countProducts() > 0)
-                            <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ auth()->user()->cart()->countProducts() }}
+                            <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger"
+                            v-if="user.has_cart"
+                            >{{ user.countProductsInCart }}
                                 <span class="visually-hidden">products in cart</span>
                             </span>
-                            @endif -->
                         </router-link>
                         </li>
                         <li class="nav-item dropdown" v-if="isLoggedIn">
@@ -67,16 +66,27 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="searchModalLabel">Search</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button id="close" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="search" name="search">
+                    <input type="text" class="form-control" name="search" 
+                    @keyup="search" v-model="input">
                     <br>
-                    <div id="search-result" class="container d-grid mt-2"></div>
+                    <div class="container d-grid mt-2">
+                        <a href="" v-for="p in products" :key="p.id" class="nav-link" @click.prevent="showProduct(p.id)">
+                            <div class="d-flex m-2">
+                                <img class="item-img me-3" src="" alt="">
+                                <div class="d-flex align-items-center">
+                                    <p class="text-center">{{ p.name }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -86,6 +96,8 @@ export default {
             categories: null,
             user: null,
             isLoggedIn: false,
+            input: '',
+            products: [],
         } 
     },
     created() {
@@ -117,7 +129,30 @@ export default {
                 this.user = null;
                 this.$router.push('/login')
             })
+        },
+
+        async search() {
+            axios.post('/api/search', {
+                input: this.input
+            }).then(response => {
+                console.log(response.data.data)
+                this.products = response.data.data
+            })
+        },
+
+        async showProduct (product_id) {
+            document.getElementById('close').click()
+            // this.$router.push('/product/' + product_id)
+            this.$router.replace({ name: 'product', params: { id: product_id }});
         }
     },
 }
 </script>
+
+<style scoped>
+.item-img {
+    width : 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+</style>

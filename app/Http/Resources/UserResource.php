@@ -14,7 +14,7 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $result = [
             'id' => $this->id,
             'number' => $this->number,
             'email' => $this->email,
@@ -23,5 +23,11 @@ class UserResource extends JsonResource
             'orders' => OrderResource::collection($this->orders()),
             'has_cart' => $this->hasCart(),
         ];
+
+        if ($this->hasCart()) {
+            $result['countProductsInCart'] = $this->cart()->countProducts();
+        }
+
+        return $result;
     }
 }

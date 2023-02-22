@@ -48,3 +48,5 @@ Route::post('/buy', [BuyController::class, 'buy']);
 Route::get('/order/{order_code}', [BuyController::class, 'order']);
 
 Route::get('/category/{category_name}/{page}', [ProductController::class, 'category']);
+
+Route::post('search', [HomeController::class, 'search']);

@@ -53,7 +53,7 @@ class HomeController extends Controller
 
     public function search(Request $request) {
 
-        $input = $request->input;
+        $input = $request->get('input');
 
         $products = [];
 
@@ -62,9 +62,5 @@ class HomeController extends Controller
         }
 
         return ProductResource::collection($products);
-        
-        // return response()->json([
-        //     'products' => $products,
-        // ]);
     }
 }

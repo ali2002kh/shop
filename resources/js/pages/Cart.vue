@@ -1,5 +1,5 @@
 <template>
-    <page-header></page-header>
+    <page-header v-if="header"></page-header>
     <div class="container my-5">
         <div class="row" v-if="hasCart">
             <div class="col-sm-12 my-1 d-flex" v-for="i in cart.items" :key="i.product_id">
@@ -59,6 +59,7 @@ export default {
         return {
             cart: null,
             hasCart: false,
+            header: true,
         }
     },
     created() {
@@ -79,9 +80,13 @@ export default {
             .then(response => {
                 console.log("count in cart : "+response.data)
                 axios.get('/api/cart')
-                .then(response => {
+                .then(async response => {
                     console.log(response.data.data)
                     this.cart = response.data.data
+                    
+                    this.header = false
+                    await this.$nextTick()
+                    this.header = true
                 })
             })
         },
@@ -91,9 +96,13 @@ export default {
             .then(response => {
                 console.log("count in cart : "+response.data)
                 axios.get('/api/cart')
-                .then(response => {
+                .then(async response => {
                     console.log(response.data.data)
                     this.cart = response.data.data
+
+                    this.header = false
+                    await this.$nextTick()
+                    this.header = true
                 }).catch(error => {
                     this.hasCart = false
                 })

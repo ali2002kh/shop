@@ -1,5 +1,5 @@
 <template>
-    <page-header></page-header>
+    <page-header v-if="header"></page-header>
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-5 my-3">
@@ -68,6 +68,7 @@ export default {
     },
     data() {
         return {
+            header: true,
             product: null,
             hasCart: false,
             inCart: false,
@@ -97,11 +98,15 @@ export default {
         async add () {
             console.log('add')
             axios.get(`/api/add-to-cart/${this.$route.params.id}`)
-            .then(response => {
+            .then(async response => {
                 console.log("count in cart : "+response.data)
                 this.count_in_cart = response.data
                 this.hasCart = true
                 this.inCart = true
+
+                this.header = false
+                await this.$nextTick()
+                this.header = true
             }).catch(error => {
                 if (error.response && 
                 error.response.status && 
@@ -115,7 +120,7 @@ export default {
             this.inCart = false
             console.log('remove')
             axios.get(`/api/remove-from-cart/${this.$route.params.id}`)
-            .then(response => {
+            .then(async response => {
                 console.log("count in cart : "+response.data)
                 this.count_in_cart = response.data
                 if (this.count_in_cart > 0) {
@@ -125,6 +130,9 @@ export default {
                         this.hasCart = false
                     }
                 }
+                this.header = false
+                await this.$nextTick()
+                this.header = true
             })
         }
     },
