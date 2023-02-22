@@ -14,6 +14,10 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'details' => 'array'
+    ];
+
     public function image() {
         try {
             return Image::where('product_id', $this->id)->where('main', true)->first()->link;

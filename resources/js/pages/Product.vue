@@ -5,11 +5,9 @@
             <div class="col-sm-5 my-3">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                    <!-- @foreach ($product->images() as $i)
                     <div class="carousel-item active">
-                        <img src="" class="d-block w-100" alt="...">
+                        <img v-for="img in product.images" :key="img.id" :src="img.link" class="d-block w-100" alt="...">
                     </div>
-                    @endforeach -->
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,9 +38,9 @@
             <div class="col-sm-3 m-4">
                 <p>details : </p>
                 <ul>
-                    <!-- @foreach (json_decode($product->details, true) as $key => $value)
-                    <li class="text-muted">{{ $key }} : {{ $value }}</li>
-                    @endforeach -->
+                    <li class="text-muted" v-for="(key, value) in product.details"
+                    :key="key"
+                    >{{ key }} : {{ value }}</li>
                 </ul>
                 <hr>
                 <p>description : </p>
