@@ -8,6 +8,7 @@ import AboutUs from "./pages/AboutUs";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
+import Category from "./pages/Category";
 
 const routes = [
     {
@@ -54,6 +55,11 @@ const routes = [
         path: "/order/:code",
         component: Order,
         name:"order",
+    },
+    {
+        path: "/category/:name",
+        component: Category,
+        name:"category",
     },
 ];
 

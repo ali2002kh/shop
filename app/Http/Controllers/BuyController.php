@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CartResource;
 use App\Http\Resources\OrderResource;
 use App\Models\Cart;
-use App\Models\Category;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Product;
@@ -121,6 +120,11 @@ class BuyController extends Controller {
         foreach ($user->cart()->items() as $item) {
             $item->old_price = $item->product()->price;
             $item->save();
+
+            $product = $item->product();
+            $product->sold += $item->count;
+            $product->count -= $item->count;
+            $product->save();
         }
 
         $order = new Order([

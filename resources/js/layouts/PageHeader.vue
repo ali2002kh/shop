@@ -49,7 +49,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategory">
                             <li v-for="c in categories" :key="c.id">
-                                <a class="dropdown-item" href="">{{ c.name }}</a>
+                                <router-link :to="{name: 'category', params: {name: c.name}}" class="dropdown-item">{{ c.name }}</router-link>
                             </li>
                         </ul>
                     </li>

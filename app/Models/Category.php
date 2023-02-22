@@ -11,7 +11,6 @@ class Category extends Model
 
     public function products() {
         
-        return Product::all()
-        ->where('category_id', $this->id);
+        return Product::where('category_id', $this->id);
     }
 }

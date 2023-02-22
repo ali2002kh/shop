@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -14,42 +13,18 @@ class ProductController extends Controller
         return new ProductResource(Product::find($id));
     }
 
-    public function category (Request $request, $category_id) {
+    public function category ($category_name, $page) {
         
-        $category = Category::find($category_id);
+        $category = Category::where('name', $category_name)->first();
 
-        $categories = Category::all();
+        $page_size = 9;
 
-        return view('client.pages.product.category', compact('category', 'categories'));
-    }
-
-    public function index (Request $request) {
-
-        $categories = Category::all();
-
-        if ($request->session()->get('category') == null || $request->session()->get('category') == 'all') {
-            $products = Product::where('id', '>', 0);
-        } else {
-            $products = Product::where('category_id', $request->session()->get('category'));
-        }
-        if ($request->session()->get('sort') == null) {
-            $products = $products->orderBy('created_at', 'DESC');
-        } else if ($request->session()->get('sort') == 'cheap') {
-            $products = $products->orderBy('price', 'ASC');
-        } else {
-            $products = $products->orderBy($request->session()->get('sort'), 'DESC');
+        if ($page == 0) {
+            return ['count' => $category->products()->count(), 'page_size' => $page_size];
         }
 
-        $products = $products->paginate(8);
+        $products = $category->products()->skip(($page-1) * $page_size)->take($page_size)->get();
 
-        return view('client.pages.product.index', compact('categories', 'products'));
-    }
-
-    public function filter (Request $request) {
-
-        $request->session()->put('sort', $request->get('sort'));
-        $request->session()->put('category', $request->get('category'));
-
-        return redirect()->back();
+        return ProductResource::collection($products);
     }
 }
