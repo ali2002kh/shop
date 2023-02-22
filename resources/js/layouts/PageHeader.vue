@@ -38,10 +38,7 @@
                         <li class="nav-item" v-else>
                             <router-link :to="{name: 'login'}" class="nav-link">login/signup</router-link>
                         </li>
-                    
-                    <li class="nav-item">
-                        <a href="" class="nav-link">products</a>
-                    </li>
+                
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategory" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             categories
