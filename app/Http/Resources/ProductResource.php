@@ -27,6 +27,8 @@ class ProductResource extends JsonResource
             'alone_in_cart' => $this->alone_in_cart(),
             'image' => '/storage/product/'.$this->image(),
             'images' => ImageResource::collection($this->images()),
+            'recommended' => $this->recommended,
+            'sold' => $this->sold,
         ];
     }
 }

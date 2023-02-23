@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BuyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -50,3 +51,7 @@ Route::get('/order/{order_code}', [BuyController::class, 'order']);
 Route::get('/category/{category_name}/{page}', [ProductController::class, 'category']);
 
 Route::post('search', [HomeController::class, 'search']);
+
+Route::get('products', [ProductController::class, 'index']);
+
+Route::get('/delete-product/{product_id}', [AdminController::class, 'deleteProduct']);

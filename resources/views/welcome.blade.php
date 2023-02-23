@@ -12,6 +12,9 @@
     <body>
         @if (auth()->check())
             {{ auth()->user()->email }}
+            @if (auth()->user()->is_admin)
+                <a href="http://127.0.0.1:8000/admin">administeration</a>
+            @endif
         @else
             not logged in
         @endif

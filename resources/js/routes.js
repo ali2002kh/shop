@@ -9,8 +9,27 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Order from "./pages/Order";
 import Category from "./pages/Category";
+import Admin from "./admin/Admin";
+import Dashboard from "./admin/Dashboard";
+import Products from "./admin/Products";
 
 const routes = [
+    {
+        path: "/admin",
+        component: Admin,
+        children: [
+            {
+                path: "",
+                component: Dashboard,
+                name: "dashboard",
+            },
+            {
+                path: "products",
+                component: Products,
+                name: "products",
+            },
+        ]
+    },
     {
         path: "/",
         component: Home,
