@@ -18,6 +18,15 @@ class Product extends Model
         'details' => 'array'
     ];
 
+    protected $fillable = [
+        'name',
+        'description',
+        'count',
+        'price',
+        'category_id',
+        'details',
+    ];
+
     public function image() {
         try {
             return Image::where('product_id', $this->id)->where('main', true)->first()->link;
