@@ -108,6 +108,7 @@ export default {
                 details: this.details
             }).then(response => {
                 console.log(response.data)
+                this.$router.push('/admin/products')
             })
         },
     }

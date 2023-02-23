@@ -38,9 +38,9 @@
             <div class="col-sm-3 m-4">
                 <p>details : </p>
                 <ul>
-                    <li class="text-muted" v-for="(key, value) in product.details"
-                    :key="key"
-                    >{{ key }} : {{ value }}</li>
+                    <li class="text-muted" v-for="p in product.details"
+                    :key="p.key"
+                    >{{ p.key }} : {{ p.value }}</li>
                 </ul>
                 <hr>
                 <p>description : </p>
