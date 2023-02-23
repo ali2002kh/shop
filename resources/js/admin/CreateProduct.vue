@@ -93,6 +93,7 @@ export default {
             hasError: false,
             errors: [],
             file: '',
+            product_id: null,
         }
     },
     created() {
@@ -125,7 +126,6 @@ export default {
             fd.append('price', this.price ?? '')
             fd.append('count', this.count ?? '')
             fd.append('category', this.category ?? '')
-            fd.append('details', this.details)
             fd.append('file', this.file)
             fd.append('_method', 'POST')
 
@@ -135,9 +135,13 @@ export default {
                     'Content-Type': `multipart/form-data; boundary=${fd._boundary}`
                     }
                 } 
-            ).then(response => {
-                console.log(response.data)
-                this.$router.push('/admin/products')
+            ).then(async response => {
+                this.product_id = response.data
+                await axios.post(`/api/store-product-details/${this.product_id}`, {
+                    details: this.details
+                }).then(response => {
+                    this.$router.push('/admin/products')
+                })
             }).catch(error => {
                 if (error.response && error.response.status) {
                     this.hasError = true

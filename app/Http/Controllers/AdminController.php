@@ -39,7 +39,7 @@ class AdminController extends Controller {
                 'description' => $request->get('description'),
                 'price' => $request->get('price'),
                 'count' => $request->get('count'),
-                'details' => $request->get('details'),
+                'details' => '',
             ]);
 
             $product->save();
@@ -52,10 +52,17 @@ class AdminController extends Controller {
             
             $image->save();
 
-            return abort(200);
+            return $product->id;
 
         }
 
         return abort(421, 'Image is required.');
+    }
+
+    public function storeProductDetails (Request $request, $product_id) {
+
+        $product = Product::find($product_id);
+        $product->details = $request->get('details');
+        $product->save();
     }
 }

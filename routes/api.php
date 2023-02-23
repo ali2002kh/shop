@@ -57,3 +57,5 @@ Route::get('products', [ProductController::class, 'index']);
 Route::get('/delete-product/{product_id}', [AdminController::class, 'deleteProduct']);
 
 Route::post('/store-product', [AdminController::class, 'storeProduct']);
+
+Route::post('/store-product-details/{product_id}', [AdminController::class, 'storeProductDetails']);
