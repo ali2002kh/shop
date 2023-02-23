@@ -74,7 +74,7 @@ export default {
                         this.errors[0] = e
                         console.log(this.errors)
                     }     
-                };
+                }
             }
 
             this.loading = false;

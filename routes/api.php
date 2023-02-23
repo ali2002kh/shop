@@ -55,3 +55,5 @@ Route::post('search', [HomeController::class, 'search']);
 Route::get('products', [ProductController::class, 'index']);
 
 Route::get('/delete-product/{product_id}', [AdminController::class, 'deleteProduct']);
+
+Route::post('/store-product', [AdminController::class, 'storeProduct']);

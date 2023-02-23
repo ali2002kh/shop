@@ -1,6 +1,13 @@
 <template>
     <div class="container">
         <form class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-danger" v-if="hasError">
+                    <ul>
+                        <li v-for="e in errors" :key="e">{{ e[0] }}</li>
+                    </ul>
+                </div>
+            </div>
             <div class="col-sm-5">
                 <div class="m-1">
                     <label for="name" class="form-label">Product name</label>
@@ -47,10 +54,14 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center m-1"
                         v-for="d in details" :key="d">
-                        <input type="text" class="form-control m-1" v-model="d['key']">
+                        <input type="text" class="form-control my-1 mx-4" v-model="d['key']">
                         :
-                        <input type="text" class="form-control m-1" v-model="d['value']">
+                        <input type="text" class="form-control my-1 mx-4" v-model="d['value']">
                     </div>
+                </div>
+                <div class="m-1">
+                    <label for="image" class="form-label">Product main image</label>
+                    <input class="form-control" type="file" id="image" @change="onFileChange($event)">
                 </div>
             </div>
             <div class="m-1 d-grid">
@@ -78,7 +89,10 @@ export default {
                     key: null,
                     value: null
                 }
-            ]
+            ],
+            hasError: false,
+            errors: [],
+            file: '',
         }
     },
     created() {
@@ -88,6 +102,10 @@ export default {
         })
     },
     methods: {
+        async onFileChange(event) {
+            this.file = event.target.files[0]
+        },
+
         async addProperty() {
             this.details.push({
                 key: null,
@@ -99,16 +117,40 @@ export default {
         },
         async create() {
             console.log(this.details)
-            await axios.post('/store-product', {
-                name: this.name,
-                description: this.description,
-                price: this.price,
-                count: this.count,
-                category: this.category,
-                details: this.details
-            }).then(response => {
+
+            let fd = new FormData()
+
+            fd.append('name', this.name ?? '')
+            fd.append('description', this.description ?? '')
+            fd.append('price', this.price ?? '')
+            fd.append('count', this.count ?? '')
+            fd.append('category', this.category ?? '')
+            fd.append('details', this.details)
+            fd.append('file', this.file)
+            fd.append('_method', 'POST')
+
+            await axios.post('/api/store-product', fd,
+                {
+                    headers: {
+                    'Content-Type': `multipart/form-data; boundary=${fd._boundary}`
+                    }
+                } 
+            ).then(response => {
                 console.log(response.data)
                 this.$router.push('/admin/products')
+            }).catch(error => {
+                if (error.response && error.response.status) {
+                    this.hasError = true
+                    console.log(error.response.data)
+                    if (error.response.status == 422) {
+                        this.errors = error.response.data.errors
+                    } else if (error.response.status == 421) {
+                        var e = []
+                        e[0] = error.response.data.message
+                        this.errors[0] = e
+                        console.log(this.errors)
+                    }     
+                }  
             })
         },
     }
