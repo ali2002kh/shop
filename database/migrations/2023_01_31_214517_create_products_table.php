@@ -19,9 +19,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('price');
             $table->integer('count');
-            $table->integer('sold');
+            $table->integer('sold')->default(0);
             $table->json('details');
-            $table->boolean('recommended');
+            $table->boolean('recommended')->default(false);
             $table->bigInteger('category_id')->unsigned()->index();
             $table->timestamps();
 

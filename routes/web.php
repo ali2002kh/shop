@@ -21,6 +21,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-// Route::post('/admin/products', [AdminController::class, 'storeProduct'])->name('admin.storeProduct');
+Route::post('/store-product', [AdminController::class, 'storeProduct']);
 
 // Route::post('/admin/products/update', [AdminController::class, 'updateProduct'])->name('admin.updateProduct');

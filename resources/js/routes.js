@@ -12,6 +12,7 @@ import Category from "./pages/Category";
 import Admin from "./admin/Admin";
 import Dashboard from "./admin/Dashboard";
 import Products from "./admin/Products";
+import CreateProduct from "./admin/CreateProduct";
 
 const routes = [
     {
@@ -27,6 +28,11 @@ const routes = [
                 path: "products",
                 component: Products,
                 name: "products",
+            },
+            {
+                path: "create-product",
+                component: CreateProduct,
+                name: "create-product",
             },
         ]
     },

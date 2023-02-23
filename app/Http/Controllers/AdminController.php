@@ -15,5 +15,19 @@ class AdminController extends Controller {
         return abort(200);
     }
 
+    public function storeProduct (Request $request) {
 
+        $product = new Product([
+            'name' => $request->get('name'),
+            'category_id' => $request->get('category'),
+            'description' => $request->get('description'),
+            'price' => $request->get('price'),
+            'count' => $request->get('count'),
+            'details' => $request->get('details'),
+        ]);
+
+        $product->save();
+
+        return $product->id;
+    }
 }

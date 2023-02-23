@@ -1,6 +1,6 @@
 <template>
     <div class="container d-flex">
-        <a href="" class="btn btn-primary">new product</a>
+        <router-link :to="{name: 'create-product'}" class="btn btn-primary">new product</router-link>
     </div>
     <div class="container mt-2">
         <table class="table">
