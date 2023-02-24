@@ -24,9 +24,9 @@ return new class extends Migration
             $table->integer('status')->default(0);
             $table->string('code');
             $table->string('telephone');
-            $table->timestamp('ordered_at');
-            $table->timestamp('sent_at')->nullable();
-            $table->timestamp('received_at')->nullable();
+            $table->dateTime('ordered_at');
+            $table->dateTime('sent_at')->nullable();
+            $table->dateTime('received_at')->nullable();
 
             $table->foreign('cart_id')->references('id')
             ->on('carts')->onDelete('cascade')->onUpdate('cascade');

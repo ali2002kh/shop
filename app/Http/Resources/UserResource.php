@@ -14,19 +14,24 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        // dd($this->orders());
         $result = [
             'id' => $this->id,
             'number' => $this->number,
             'email' => $this->email,
             'fname' => $this->fname,
             'lname' => $this->lname,
-            'orders' => OrderResource::collection($this->orders()),
             'has_cart' => $this->hasCart(),
             'is_admin' => $this->is_admin,
         ];
 
         if ($this->hasCart()) {
             $result['countProductsInCart'] = $this->cart()->countProducts();
+        }
+
+        if ($this->orders()[0] != null) {
+            $result['orders' ] = OrderResource::collection($this->orders());
         }
 
         return $result;

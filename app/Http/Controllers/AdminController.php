@@ -182,7 +182,33 @@ class AdminController extends Controller {
 
     public function changeOrderStatus(Request $request, $order_id) {
 
+        $request->validate([
+            'status' => 'required'
+        ]);
+
         $order = Order::find($order_id);
+        
+        if ($order->status == 0) {
+            if ($request->get('status') == 1) {
+                $order->sent_at = now();
+            } else if ($request->get('status') == 2) {
+                $order->sent_at = now();
+                $order->received_at = now();
+            }
+        } else if ($order->status == 1) {
+            if ($request->get('status') == 2) {
+                $order->received_at = now();
+            } else if ($request->get('status') == 0) {
+                $order->sent_at = null;
+            } 
+        } else if ($order->status == 2) {
+            if ($request->get('status') == 1) {
+                $order->received_at = null;
+            } else if ($request->get('status') == 0) {
+                $order->received_at = null;
+                $order->sent_at = null;
+            }
+        }
         $order->status = $request->get('status');
         $order->save();
     }
