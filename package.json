@@ -20,7 +20,11 @@
         "vue-loader": "^17.0.1"
     },
     "dependencies": {
+        "jalali-moment": "^3.3.11",
+        "moment-jalaali": "^0.9.6",
         "vue": "^3.2.36",
+        "vue-jalali-moment": "^1.0.0",
+        "vue-moment": "^4.1.0",
         "vue-router": "^4.1.6"
     }
 }

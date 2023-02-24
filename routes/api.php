@@ -58,3 +58,5 @@ Route::get('/delete-category/{category_id}', [AdminController::class, 'deleteCat
 Route::post('/update-category/{category_id}', [AdminController::class, 'updateCategory']);
 
 Route::post('/create-category', [AdminController::class, 'createCategory']);
+
+Route::get('orders', [AdminController::class, 'orders']);

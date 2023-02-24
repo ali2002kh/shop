@@ -95,7 +95,7 @@ class BuyController extends Controller {
     public function cities(Request $request) {
 
         $cities = DB::table('cities')
-            ->where('province_id', $request->get('province'))
+            ->where('province', $request->get('province'))
             ->get();
 
         return $cities;

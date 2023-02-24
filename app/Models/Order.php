@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -31,6 +32,10 @@ class Order extends Model
         return Cart::find($this->cart_id);
     }
 
+    public function user() {
+        return $this->cart()->user();
+    }
+
     public function status() {
 
         if ($this->status == 0) {
@@ -41,4 +46,19 @@ class Order extends Model
             return "received";
         }
     }
+
+    public function city() {
+        
+        return DB::table('cities')
+            ->where('id', $this->city_id)
+            ->first();
+    }
+
+    public function province() {
+        return DB::table('provinces')
+                ->where('id', $this->city()->province)
+                ->first();
+    }
+
+
 }

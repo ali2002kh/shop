@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderInfoResource;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -169,5 +171,12 @@ class AdminController extends Controller {
         $category->save();
 
         return abort(200);
+    }
+
+    public function orders() {
+
+        $orders = Order::all()->sortByDesc('ordered_at');
+
+        return OrderInfoResource::collection($orders);
     }
 }

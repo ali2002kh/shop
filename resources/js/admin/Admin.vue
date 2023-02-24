@@ -10,9 +10,9 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <router-link :to="{name: 'orders'}" class="nav-link align-middle px-0">
                             <i class="fa fa-shopping-bag"></i> <span class="ms-1 d-none d-sm-inline">Orders</span>
-                        </a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <router-link :to="{name: 'products'}" class="nav-link align-middle px-0">

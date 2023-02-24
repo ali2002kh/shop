@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="container d-flex">
-                    <img class="rounded-circle mx-3" src="" alt="">
+                    <img class="rounded-circle mx-3" src="storage/img/default.jpg" alt="">
                     <div class="d-grid">
                         <p class="text-muted mb-1">{{ user.number }}</p>
                         <p class="text-muted mb-1">{{ user.email }}</p>

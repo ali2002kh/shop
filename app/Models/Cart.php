@@ -21,6 +21,10 @@ class Cart extends Model
         ->count();
     }
 
+    public function user() {
+        return User::find($this->user_id);
+    }
+
     public function item($product_id) {
 
         return Item::all()

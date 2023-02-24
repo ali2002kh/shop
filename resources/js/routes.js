@@ -15,6 +15,7 @@ import Products from "./admin/Products";
 import CreateProduct from "./admin/CreateProduct";
 import EditProduct from "./admin/EditProduct";
 import Categories from "./admin/Categories";
+import Orders from "./admin/Orders";
 
 const routes = [
     {
@@ -45,6 +46,11 @@ const routes = [
                 path: "categories",
                 component: Categories,
                 name: "categories",
+            },
+            {
+                path: "orders",
+                component: Orders,
+                name: "orders",
             },
         ]
     },
