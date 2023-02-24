@@ -20,9 +20,9 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
+                        <router-link :to="{name: 'categories'}" class="nav-link align-middle px-0">
                             <i class="fa fa-windows"></i> <span class="ms-1 d-none d-sm-inline">Categories</span>
-                        </a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link align-middle px-0">

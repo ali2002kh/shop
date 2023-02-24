@@ -14,6 +14,7 @@ import Dashboard from "./admin/Dashboard";
 import Products from "./admin/Products";
 import CreateProduct from "./admin/CreateProduct";
 import EditProduct from "./admin/EditProduct";
+import Categories from "./admin/Categories";
 
 const routes = [
     {
@@ -39,6 +40,11 @@ const routes = [
                 path: "edit-product/:id",
                 component: EditProduct,
                 name: "edit-product",
+            },
+            {
+                path: "categories",
+                component: Categories,
+                name: "categories",
             },
         ]
     },

@@ -26,7 +26,8 @@
                     <td>
                         <router-link :to="{name: 'edit-product', params: {id: p.id}}" class="btn btn-dark m-1"><i class="fa fa-edit"></i></router-link>
                         <button @click.prevent="deleteProduct(p.id)" class="btn btn-danger m-1"><i class="fa fa-trash"></i></button>
-                        <button type="button" class="btn btn-secondary m-1" data-bs-toggle="modal" :data-bs-target="`#addImage_${p.id}`"><i class="fa fa-image"></i></button>
+                        <button type="button" class="btn btn-secondary m-1" data-bs-toggle="modal" 
+                        :data-bs-target="`#addImage_${p.id}`"  @click="close"><i class="fa fa-image"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -95,8 +96,6 @@ export default {
         },
 
         async onFileChange(event) {
-            this.success = false
-            this.hasError = false
             this.file = event.target.files[0]
         },
         
@@ -132,6 +131,13 @@ export default {
                     }     
                 } 
             })
+        },
+
+        
+        async close() {
+            this.hasError = false
+            this.success = false
+            this.file = ''
         }
     },
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -15,6 +16,27 @@ class AdminController extends Controller {
         $product->delete();
 
         return abort(200);
+    }
+
+    public function deleteCategory ($category_id) {
+
+        $category = Category::find($category_id);
+        $category->delete();
+
+        return abort(200);
+    }
+
+    public function updateCategory (Request $request, $category_id) {
+
+        $request->validate([
+            'name' =>  [Rule::unique('categories')->ignore($category_id), 'required'],
+        ]);
+
+        $category = Category::find($category_id);
+        $category->name = $request->get('name');
+        $category->save();
+
+        return abort(200, 'information successfully updated');
     }
 
     public function storeProduct (Request $request) {
@@ -132,5 +154,20 @@ class AdminController extends Controller {
         }
 
         return abort(421, 'Image is required.');
+    }
+
+    public function createCategory (Request $request) {
+
+        $request->validate([
+            'name' =>  'required|unique:categories',
+        ]);
+
+        $category = new Category([
+            "name" => $request->get('name'),
+        ]);
+
+        $category->save();
+
+        return abort(200);
     }
 }
