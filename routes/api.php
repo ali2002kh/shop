@@ -50,3 +50,5 @@ Route::post('/store-product', [AdminController::class, 'storeProduct']);
 Route::post('/update-product/{product_id}', [AdminController::class, 'updateProduct']);
 
 Route::post('/store-product-details/{product_id}', [AdminController::class, 'storeProductDetails']);
+
+Route::post('/add-product-image/{product_id}', [AdminController::class, 'addProductImage']);

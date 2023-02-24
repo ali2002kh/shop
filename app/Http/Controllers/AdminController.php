@@ -109,4 +109,28 @@ class AdminController extends Controller {
         $product->details = $request->get('details');
         $product->save();
     }
+
+    public function addProductImage (Request $request, $product_id) {
+
+        if ($request->hasFile('file')) {
+
+            $request->validate([
+                'image' => 'mimes:jpeg,bmp,png'
+            ]);
+
+            $request->file->store('product', 'public');
+
+            $image = new Image([
+                "link" => $request->file->hashName(),
+                "main" => false,
+                "product_id" => $product_id,
+            ]);
+            
+            $image->save();
+
+            return abort(200, 'information successfully updated');
+        }
+
+        return abort(421, 'Image is required.');
+    }
 }
