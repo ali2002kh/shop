@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'count' => $this->count,
             'category' => $this->category()->name,
+            'category_id' => $this->category_id,
             'description' => $this->description,
             'details' => $this->details,
             'count_in_cart' => $this->count_in_cart(),

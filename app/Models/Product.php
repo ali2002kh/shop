@@ -27,6 +27,10 @@ class Product extends Model
         'details',
     ];
 
+    public function getImage() {
+        return Image::where('product_id', $this->id)->where('main', true)->first();
+    }
+
     public function image() {
         try {
             return Image::where('product_id', $this->id)->where('main', true)->first()->link;

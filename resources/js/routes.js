@@ -13,6 +13,7 @@ import Admin from "./admin/Admin";
 import Dashboard from "./admin/Dashboard";
 import Products from "./admin/Products";
 import CreateProduct from "./admin/CreateProduct";
+import EditProduct from "./admin/EditProduct";
 
 const routes = [
     {
@@ -33,6 +34,11 @@ const routes = [
                 path: "create-product",
                 component: CreateProduct,
                 name: "create-product",
+            },
+            {
+                path: "edit-product/:id",
+                component: EditProduct,
+                name: "edit-product",
             },
         ]
     },

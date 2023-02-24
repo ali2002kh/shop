@@ -24,7 +24,7 @@
                     <td><i v-if="p.recommended" class="fa fa-check"></i></td>
                     <td>{{ p.count }}</td>
                     <td>
-                        <a href="" class="btn btn-dark m-1"><i class="fa fa-edit"></i></a>
+                        <router-link :to="{name: 'edit-product', params: {id: p.id}}" class="btn btn-dark m-1"><i class="fa fa-edit"></i></router-link>
                         <button @click.prevent="deleteProduct(p.id)" class="btn btn-danger m-1"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
