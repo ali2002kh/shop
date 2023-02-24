@@ -60,3 +60,7 @@ Route::post('/update-category/{category_id}', [AdminController::class, 'updateCa
 Route::post('/create-category', [AdminController::class, 'createCategory']);
 
 Route::get('orders', [AdminController::class, 'orders']);
+
+Route::get('/filtered-orders/{status}', [AdminController::class, 'filteredOrders']);
+
+Route::post('/change-order-status/{order_id}', [AdminController::class, 'changeOrderStatus']);

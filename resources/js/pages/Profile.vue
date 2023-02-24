@@ -1,7 +1,6 @@
 <template>
     <page-header></page-header>
     <div class="container my-4">
-        <!-- @include('client.layouts.error') -->
         <div class="row">
             <div class="col-sm-4">
                 <div class="container d-flex">

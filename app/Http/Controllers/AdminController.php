@@ -179,4 +179,18 @@ class AdminController extends Controller {
 
         return OrderInfoResource::collection($orders);
     }
+
+    public function changeOrderStatus(Request $request, $order_id) {
+
+        $order = Order::find($order_id);
+        $order->status = $request->get('status');
+        $order->save();
+    }
+
+    public function filteredOrders($status) {
+
+        $orders = Order::all()->where('status', $status)->sortByDesc('ordered_at');
+
+        return OrderInfoResource::collection($orders);
+    }
 }

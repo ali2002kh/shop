@@ -1,6 +1,14 @@
 <template>
-    <div class="container d-flex">
-        <!-- <router-link :to="{name: 'create-product'}" class="btn btn-primary">new product</router-link> -->
+    <div class="container m-2">
+        <label for="filter" class="form-label lead">Status filter </label>
+        <form class="d-flex justify-content-between align-items-center" style="width:200px">
+            <select name="filter" id="filter" class="form-control m-1" v-model="filter" @change="getFilteredOrders">
+                <option value="all">all</option>
+                <option value="0">pending</option>
+                <option value="1">sent</option>
+                <option value="2">received</option>
+            </select>
+        </form>
     </div>
     <div class="container mt-2">
         <table class="table">
@@ -10,7 +18,8 @@
                 <th scope="col">cost</th>
                 <th scope="col">status</th>
                 <th scope="col">ordered time</th>
-                <th scope="col">handle</th>
+                <th scope="col">info</th>
+                <th scope="col">change status</th>
               </tr>
             </thead>
             <tbody>
@@ -20,8 +29,17 @@
                     <td>{{ o.status }}</td>
                     <td>{{ o.ordered_at }}</td>
                     <td>
-                        <button type="button" class="btn btn-success m-1" data-bs-toggle="modal" 
+                        <button type="button" class="btn btn-secondary m-1" data-bs-toggle="modal" 
                         :data-bs-target="`#orderInfo_${o.id}`"><i class="fa fa-info"></i></button>
+                    </td>
+                    <td class="d-flex justify-content-between align-items-center">
+                        <select name="status" :id="`status_${o.id}`" class="form-control m-1" v-model="o.status_id">
+                            <option value="0">pending</option>
+                            <option value="1">sent</option>
+                            <option value="2">received</option>
+                        </select>
+                        <button class="btn btn-success m-1"
+                        @click.prevent="changeStatus(o)">submit</button> 
                     </td>
                 </tr>
             </tbody>
@@ -96,6 +114,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -104,6 +123,7 @@ export default {
     data() {
         return {
             orders: [],
+            filter: 'all',
         }
     },
     created() {
@@ -113,7 +133,27 @@ export default {
         })
     },  
     methods: {
+        async changeStatus(o) {
+            axios.post(`/api/change-order-status/${o.id}`, {
+                status: o.status_id
+            }).then(response => {
+                this.getFilteredOrders()
+            })
+        },
 
+        async getFilteredOrders () {
+            if (this.filter == 'all') {
+                axios.get('/api/orders')
+                .then(response => {
+                    this.orders = response.data.data
+                })
+            } else {
+                axios.get(`/api/filtered-orders/${this.filter}`)
+                .then(response => {
+                    this.orders = response.data.data
+                })
+            }
+        }
     },
 }
 </script>
