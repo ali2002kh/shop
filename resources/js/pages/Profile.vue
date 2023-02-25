@@ -13,7 +13,8 @@
                 </div>
             </div>
             <div class="col-sm-4 text-center">
-                <p class="text-muted mb-1 mt-3">number of orders : {{ user.orders.length }}</p>
+                <p v-if="hasOrdered" class="text-muted mb-1 mt-3">number of orders : {{ user.orders.length }}</p>
+                <p v-else class="text-muted mb-1 mt-3">not ordered yet</p>
             </div>
             <div class="col-sm-4 text-center">
                 <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#editProfile">Edit account information</button>
@@ -146,7 +147,7 @@ export default {
         .then(response => {
             console.log(response.data.data)
             this.user = response.data.data;
-            if (this.user.orders.length > 0) {
+            if (this.user.orders != null) {
                 this.hasOrdered = true;
             }
             this.email = this.user.email
