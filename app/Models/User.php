@@ -38,6 +38,19 @@ class User extends Authenticatable
         return false;
     }
 
+    public function hasOrder() {
+
+        $count = Cart::all()
+        ->where('user_id', $this->id)
+        ->where('status', 0)
+        ->count();
+
+        if ($count > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function cart() {
         
         return Cart::all()

@@ -24,13 +24,14 @@ class UserResource extends JsonResource
             'lname' => $this->lname,
             'has_cart' => $this->hasCart(),
             'is_admin' => $this->is_admin,
+            // 'has_order' => $this->hasOrder(),
         ];
 
         if ($this->hasCart()) {
             $result['countProductsInCart'] = $this->cart()->countProducts();
         }
 
-        if ($this->orders()[0] != null) {
+        if ($this->hasOrder()) {
             $result['orders' ] = OrderResource::collection($this->orders());
         }
 
