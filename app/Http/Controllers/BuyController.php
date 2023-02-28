@@ -20,6 +20,12 @@ class BuyController extends Controller {
             return abort(401);
         }
 
+        $product = Product::find($product_id);
+
+        if ($product->count <= 0) {
+            return abort(500);
+        }
+
         $user = auth()->user();
 
         if($user->hasCart()) {
@@ -47,8 +53,6 @@ class BuyController extends Controller {
             ]);
             $item->save();
         }
-
-        $product = Product::find($product_id);
         
         return $product->count_in_cart();
     }

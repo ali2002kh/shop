@@ -22,10 +22,12 @@
             <div class="col-sm-3 my-3 text-center">
                 <p class="display-6">{{ product.name }}</p>
                 <p class="lead">{{ product.price }} toman</p>
-                <p class="text-muted">number remaining : {{ product.count }}</p>
+                <p v-if="available" class="text-muted">number remaining : {{ remaining }}</p>
+                <p v-else class="text-muted">not available</p>
                 <p class="text-muted">category : {{ product.category }}</p>
-                <div class="m-1 d-grid">
-                    <button type="submit" class="btn btn-primary my-1"
+                <div class="m-1 d-grid" >
+                    <button v-if="available"
+                    type="submit" class="btn btn-primary my-1"
                     @click.prevent="add"
                     >add to cart</button>
                     <button type="submit" class="btn btn-danger my-1"
@@ -72,6 +74,7 @@ export default {
             inCart: false,
             count_in_cart: 0,
             onlyProductInCart: true,
+            remaining: null,
         }
     },
     created() {
@@ -83,8 +86,10 @@ export default {
         .then(response => {
             console.log(response.data.data)
             this.product = response.data.data
+            this.remaining = this.product.count
             if (this.hasCart) {
                 this.count_in_cart = this.product.count_in_cart
+                this.remaining -= this.count_in_cart
                 if (this.count_in_cart > 0) {
                     this.inCart = true
                     this.onlyProductInCart = this.product.alone_in_cart
@@ -95,24 +100,26 @@ export default {
     methods: {
         async add () {
             console.log('add')
-            axios.get(`/api/add-to-cart/${this.$route.params.id}`)
-            .then(async response => {
-                console.log("count in cart : "+response.data)
-                this.count_in_cart = response.data
-                this.hasCart = true
-                this.inCart = true
-
-                this.header = false
-                await this.$nextTick()
-                this.header = true
-            }).catch(error => {
-                if (error.response && 
-                error.response.status && 
-                error.response.status == 401) {
-                    console.log('401')
-                    this.$router.push('/login')
-                };
-            })
+            if (this.remaining > 0) {
+                axios.get(`/api/add-to-cart/${this.$route.params.id}`)
+                .then(async response => {
+                    console.log("count in cart : "+response.data)
+                    this.count_in_cart = response.data
+                    this.hasCart = true
+                    this.inCart = true
+                    this.header = false
+                    await this.$nextTick()
+                    this.remaining--
+                    this.header = true
+                }).catch(error => {
+                    if (error.response && 
+                    error.response.status && 
+                    error.response.status == 401) {
+                        console.log('401')
+                        this.$router.push('/login')
+                    };
+                })
+            }
         },
         async remove () {
             this.inCart = false
@@ -128,11 +135,20 @@ export default {
                         this.hasCart = false
                     }
                 }
+                this.remaining++
                 this.header = false
                 await this.$nextTick()
                 this.header = true
             })
         }
     },
+    computed: {
+        available() {
+            if (this.remaining > 0) {
+                return true
+            } 
+            return false
+        }
+    }
 }
 </script>
