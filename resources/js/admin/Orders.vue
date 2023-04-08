@@ -27,7 +27,7 @@
                     <td>{{ o.code }}</td>
                     <td>{{ o.final_price }}</td>
                     <td>{{ o.status }}</td>
-                    <td>{{ o.ordered_at }}</td>
+                    <td>{{ jalali (o.ordered_at) }}</td>
                     <td>
                         <button type="button" class="btn btn-secondary m-1" data-bs-toggle="modal" 
                         :data-bs-target="`#orderInfo_${o.id}`"><i class="fa fa-info"></i></button>
@@ -74,15 +74,15 @@
                     </div>
                     <div class="d-flex flex-wrap m-2 justify-content-between align-items-center">
                         <div class="justify-content-start">ordered time : </div>
-                        <div class="justify-content-end">{{ o.ordered_at }}</div>
+                        <div class="justify-content-end">{{ jalali (o.ordered_at) }}</div>
                     </div>
                     <div class="d-flex flex-wrap m-2 justify-content-between align-items-center">
                         <div class="justify-content-start">sent time : </div>
-                        <div class="justify-content-end">{{ o.sent_at }}</div>
+                        <div class="justify-content-end">{{ jalali (o.sent_at) }}</div>
                     </div>
                     <div class="d-flex flex-wrap m-2 justify-content-between align-items-center">
                         <div class="justify-content-start">received time : </div>
-                        <div class="justify-content-end">{{ o.received_at }}</div>
+                        <div class="justify-content-end">{{ jalali (o.received_at) }}</div>
                     </div>
                     <hr>
                     <p class="lead">User</p>
@@ -119,6 +119,8 @@
 
 <script>
 
+import moment from "jalali-moment"
+
 export default {
     data() {
         return {
@@ -153,6 +155,9 @@ export default {
                     this.orders = response.data.data
                 })
             }
+        },
+        jalali(date) {
+            return moment (date).locale("fa").format("YYYY-M-D H:mm:ss")
         }
     },
 }
